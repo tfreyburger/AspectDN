@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{62593529-EEFD-49A0-855A-899939467C7C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AspectDN.Aspect.Weaving</RootNamespace>
+    <AssemblyName>AspectDN.Aspect.Weaving</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Foundation.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\Foundation.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil, Version=0.11.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Mono.Cecil.0.11.4\lib\net40\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.11.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Mono.Cecil.0.11.4\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.11.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Mono.Cecil.0.11.4\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.11.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Mono.Cecil.0.11.4\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeExtensions\BlockToConvert.cs" />
+    <Compile Include="CodeExtensions\ILBodyMerger.cs" />
+    <Compile Include="DeclaringTypedType.cs" />
+    <Compile Include="FlatTypeMembers\FlatTypeMember.cs" />
+    <Compile Include="FlatTypeMembers\FlatTypeMembers.cs" />
+    <Compile Include="Interface\IWeaver.cs" />
+    <Compile Include="CodeExtensions\BaseMethodBodyBuilder.cs" />
+    <Compile Include="CodeExtensions\ILWorkItem.cs" />
+    <Compile Include="CodeExtensions\MethodBodyCloner.cs" />
+    <Compile Include="CodeExtensions\MethodBodyMerger.cs" />
+    <Compile Include="CodeExtensions\CodeMethodExtender.cs" />
+    <Compile Include="ModifierKinds.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GenericResolutionContext.cs" />
+    <Compile Include="ResolvedPrototypeItem.cs" />
+    <Compile Include="ResolvedTypeMember.cs" />
+    <Compile Include="RootFlatInterfacecs.cs" />
+    <Compile Include="PrototypeItemMapping.cs" />
+    <Compile Include="PrototypeTypeMapping.cs" />
+    <Compile Include="WeaveItem.cs" />
+    <Compile Include="WeaveItemBuilder.cs" />
+    <Compile Include="Weaver.cs" />
+    <Compile Include="WeaverHelper.cs" />
+    <Compile Include="WeaveTypes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="AspectDN.Aspect.Weaving.Err">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\AspectDN.Common\AspectDN.Common.csproj">
+      <Project>{fb4a1ed8-2ec2-4a6b-9ff8-e5f2b9beb21f}</Project>
+      <Name>AspectDN.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AspectDN.Aspect.Weaving.IConcerns\AspectDN.Aspect.Weaving.IConcerns.csproj">
+      <Project>{d8d9c39e-f918-4c40-a6f9-a3e884fbe4a1}</Project>
+      <Name>AspectDN.Aspect.Weaving.IConcerns</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AspectDN.Aspect.Weaving.IJoinpoints\AspectDN.Aspect.Weaving.IJoinpoints.csproj">
+      <Project>{c83caac1-874d-4134-9ec9-e32152e42cd1}</Project>
+      <Name>AspectDN.Aspect.Weaving.IJoinpoints</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AspectDN.Aspect.Weaving.Marker\AspectDN.Aspect.Weaving.Marker.csproj">
+      <Project>{b4a70b64-8f13-4dc0-a9f2-dff131f09a01}</Project>
+      <Name>AspectDN.Aspect.Weaving.Marker</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

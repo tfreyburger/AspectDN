@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Errors>
+  <!--
+  <Error id="AspectMemberAlreadyApplied" code="SY0001" level="100" >
+    <en value ="Advice member applied more than one time"/>
+  </Error>-->
+  <Error id="NewMemberAlreadyExist" code="SY0001" level="100" >
+    <en value ="Member {0} of the advice type member already exists in {1}"/>
+  </Error>
+  <Error id="TypeMemberConflict" code="SY0001" level="100" >
+    <en value ="The aspect {0} is on conflict with the target type {1}"/>
+  </Error>
+  <Error id="PrototypeTypeMappingMissing" code="SY0001" level="100" >
+    <en value ="Prototype type '{0}' has no defined mapping."/>
+  </Error>
+  <Error id="PrototypeTypeMappingError" code="SY0001" level="100" >
+    <en value ="Prototype type '{0}' has not a correct mapping."/>
+  </Error>
+  <Error id="NoJoinpointFound" code="SY0001" level="10" >
+    <en value ="Nothing from Pointcut '{0}' for the aspect '{1}' has been found."/>
+  </Error>
+  <Error id="AspectMemberAlreadyApplied" code="SY0001" level="10" >
+    <en value ="Member '{0}' is already applied."/>
+  </Error>
+  <Error id="AdviceUseLikeType" code="SY0001" level="10" >
+    <en value ="Advice '{0}' uses advice {1} like a type"/>
+  </Error>
+  <Error id="AspectUseLikeType" code="SY0001" level="10" >
+    <en value ="Advice '{0}' uses aspect {1} like a type"/>
+  </Error>
+  <Error id="PointcutUseLikeType" code="SY0001" level="10" >
+    <en value ="Advice '{0}' uses pointcut {1} like a type"/>
+  </Error>
+  <Error id="EnumMemberAlreadyExist" code="SY0001" level="10" >
+    <en value ="Enum Member {0} alreadey exists."/>
+  </Error>
+  <Error id="WeaveItemItemMappingTargetNull" code="SY0001" level="100" >
+    <en value ="Prototype item '{0}' has a null target."/>
+  </Error>
+  <Error id="PrototypeTypeGenericArgumentMappingMissing" code="SY0001" level="100" >
+    <en value ="Mapping generic argument '{0}' of the prototype type {1} has not been found in the target {1} or is not well defined."/>
+  </Error>
+  <Error id="PrototypeTargetItemNotFound" code="SY0001" level="100" >
+    <en value ="The prototype member '{0}' is mapped with a target name '{1}' which doesn't exist."/>
+  </Error>
+  <Error id="PrototypeTargetTypeNotFound" code="SY0001" level="100" >
+    <en value ="The prototype type '{0}' is mapped with a target type '{1}' which doesn't exist."/>
+  </Error>
+    <Error id="TypeAlreadyExist" code="SY0001" level="100" >
+    <en value ="The new type '{0}' already exists."/>
+  </Error>
+  <Error id="CodeReturnTypeMismatch" code="SY0001" level="100" >
+    <en value ="Code is returning a type that is not the return type of the target"/>
+  </Error>
+  <Error id="CodeMakeUnreachCode" code="SY0001" level="100" >
+    <en value ="Code from aspect {0} mak some target code unreichable"/>
+  </Error>
+  <Error id="WeaveItemConsumerError" code="SY0001" level="100" >
+    <en value ="Aspect {2} at joinpoint {3} can not be applied due to an related aspect error {0} at joinpoint {1}"/>
+  </Error>
+  <!--
+  <Error id="MappingMemberMismatch" code="SY0001" level="100" >
+    <en value ="Mapping of member {0} has not been defined or not correctly"/>
+  </Error> -->
+	
+  <Error id="BaseTypeAlreadyExist" code="SY0001" level="100" >
+    <en value ="A base type already exists for {0}."/>
+  </Error>
+  <Error id="OverloadedConstructorMismatch" code="SY0001" level="100" >
+    <en value ="No overloaded constructor found for {0}"/>
+  </Error>
+
+  <Error id="PrototypeEventPropertyMistake" code="SY0001" level="100" >
+    <en value ="The prototype item {0} map to event {1} can appears only at left of += or -="/>
+  </Error>
+  <Error id="PrototypeEventAddMethodMistake" code="SY0001" level="100" >
+    <en value ="The prototype item {0} is mapped to event {1} which has not an add method"/>
+  </Error>
+  <Error id="PrototypeEventRemoveMethodMistake" code="SY0001" level="100" >
+    <en value ="The prototype item {0} is mapped to event {1} which has not a remove method"/>
+  </Error>
+
+  <Error id="PrototypememberAccessModifierError" code="SY0001" level="100" >
+    <en value ="The prototype item {0} in {1} is mapped to {2} which can not be accessed according its access modifier"/>
+  </Error>
+  <Error id="PrototypeIndexerSetMethodMistake" code="SY0001" level="100" >
+    <en value ="The prototype item {0} can not be mapped to a set method in the target tyê {1}"/>
+  </Error>
+  <Error id="PrototypePropertyGetMethodMistake" code="SY0001" level="100" >
+    <en value ="The prototype item {0} is mapped to property {1} which has not an get method"/>
+  </Error>
+  <Error id="NoJointpointFound" code="SY0001" level="0" >
+    <en value ="Aspect {0} has found any jointpoint"/>
+  </Error>
+  <Error id="MemberAlreadyExist" code="SY0001" level="0" >
+    <en value ="Member {0} already existing "/>
+  </Error>
+  <Error id="WeaveItemWWithPropertyItemWithoutTarget" code="SY0001" level="0" >
+    <en value ="Member {0} already existing "/>
+  </Error>
+  <Error id="InterfaceMemberConflict" code="SY0001" level="0" >
+    <en value ="Some members are missing {0} for the interface {0}"/>
+  </Error>
+  <Error id="WrongBaseValueType" code="SY0001" level="0" >
+    <en value ="This base value type {0} cannot be applied to {1}"/>
+  </Error>
+	<Error id="ThisWithTargetStaticJoinpoint" code="SY0001" level="0" >
+		<en value ="{0} aspect defines a this that can not be added in {1}"/>
+	</Error>
+	<Error id="AspectWithPrototypeTypeTargetError" code="SY0001" level="0" >
+		<en value ="Aspect {0} is on error as it used a prototype type with wrong mathcing {1}"/>
+	</Error>
+  <Error id="PrototypeTypeMappingMemberMatchingError" code="SY0001" level="100" >
+    <en value ="The member '{1}' of prototype type '{0}' has no matching with the target."/>
+  </Error>
+<Error id="PrototypeTypeMappingGenericParamMatchingError" code="SY0001" level="100" >
+    <en value ="The generic paramters of prototype type '{0}' has no matching with the target."/>
+  </Error>
+<Error id="PrototypeTypeMappingModifierMatchingError" code="SY0001" level="100" >
+    <en value ="Modifiers of prototype type '{0}' has no matching with the target."/>
+  </Error>
+<Error id="PrototypeTypeMappingKindMatchingError" code="SY0001" level="100" >
+    <en value ="Kind '{1}' of prototype type '{0}' has no matching with the target."/>
+</Error>
+<Error id="PrototypeTypeMappingBaseTypeMatchingError" code="SY0001" level="100" >
+    <en value ="Base type '{1}' of prototype type '{0}' has no matching with the target."/>
+</Error>
+<Error id="PrototypeTypeMappingInterfaceMatchingError" code="SY0001" level="100" >
+    <en value ="Interface '{1}' of prototype type '{0}' has no matching with the target."/>
+  </Error>
+
+</Errors>

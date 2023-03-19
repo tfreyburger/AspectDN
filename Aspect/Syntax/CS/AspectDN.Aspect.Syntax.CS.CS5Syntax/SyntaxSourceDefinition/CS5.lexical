@@ -1,0 +1,452 @@
+// A.1 Lexical grammar
+input::
+        [input-section]
+
+input-section::
+        [input-section-part]*
+
+input-section-part::
+        whitespace
+        comment
+        token 
+		new-line
+
+//A.1.1 Line terminators
+
+new-line::
+       0x000D   //Carriage return character
+       0x000A // Line feed character
+       0x000D 0x000A // Carriage return character followed by line feed character 0x000A
+       0x0085 //Next line character
+       0x2028 //Line separator character
+       0x2029 // Paragraph separator character
+
+// A.1.2 White space
+
+whitespace::
+        Zs
+        0x0009 //Horizontal tab character
+        0x000B //Vertical tab character
+        0x000C  // Form feed character
+
+// A.1.3 Comments
+
+comment::
+        single-line-comment
+        delimited-comment
+
+single-line-comment::
+        '//'   [input-characters]
+
+input-characters::
+        input-character*
+
+input-character::
+        ! (new-line-character)
+
+new-line-character::
+        0x000D // Carriage return character
+        0x000A // Line feed character
+        0x0085 // Next line character
+        0x2028 // Line separator character
+        0x2029 // Paragraph separator character
+
+delimited-comment::
+        '/*'   [delimited-comment-text] asterisks   '/'
+
+delimited-comment-text::
+        delimited-comment-section*
+
+delimited-comment-section::
+        not-asterisk
+        asterisks   not-slash
+
+asterisks::
+        '*'*
+
+not-asterisk::
+       ! ('*')
+
+not-slash::
+        ! ('/')
+
+// A.1.4 Tokens
+token::
+        literal
+        operator-or-punctuator
+        identifier
+		keyword
+		prototype-identifier
+		prototype-argument-index
+
+// A.1.5 Unicode character escape sequences
+// check the escape sequence
+unicode-character-escape-sequence::
+        '0x'   hex-digit   hex-digit   hex-digit   hex-digit
+        '0x'   hex-digit   hex-digit   hex-digit  hex-digit   hex-digit   hex-digit   hex-digit   hex-digit
+
+// A.1.6 Identifiers
+
++identifier::
+    available-identifier
+    '@'   identifier-or-keyword
+
++prototype-identifier::
+	'#' identifier-or-keyword
+    '#'
+
++prototype-argument-index::
+	'#' decimal-integer-literal 
+
+available-identifier::
+        (identifier-or-keyword != (keyword, predefined-literal))
+
+identifier-or-keyword::
+        identifier-start-character   [identifier-part-characters]
+
+identifier-start-character::
+        letter-character
+        '_' // (the underscore character)
+
+identifier-part-characters::
+        identifier-part-character*
+
+
+identifier-part-character::
+        letter-character
+        decimal-digit-character
+        connecting-character
+        combining-character
+        formatting-character
+
+letter-character::
+	( Lu, Ll, Lt, Lm, Lo, Nl)
+
+combining-character::
+	( Mn, Mc)
+
+decimal-digit-character::
+	 Nd 
+
+connecting-character::
+	Pc
+
+formatting-character::
+	Cf
+
++keyword::
+     (keyword-value ?! identifier-part-character)
+
+keyword-value::
+        'abstract'
+        'as'
+        'base'
+        'bool'
+        'break'
+        'byte'
+        'case'
+        'catch'
+        'char'
+        'checked'
+        'class'
+        'const'
+        'continue'
+        'decimal'
+        'default'
+        'delegate'
+        'do'
+        'double'
+        'else'
+        'enum'
+        'event'
+        'explicit'
+        'extern'
+        'finally'
+        'fixed'
+        'float'
+        'for'
+        'foreach'
+        'goto'
+        'if'
+        'implicit'
+        'in'
+        'int'
+        'interface'
+        'is'
+        'lock'
+        'long'
+        'namespace'
+        'new'
+        'object'
+        'operator'
+        'out'
+        'override'
+        'params'
+        'private'
+        'protected'
+        'internal'
+        'readonly'
+        'ref'
+        'return'
+        'sbyte'
+        'sealed'
+        'short'
+        'sizeof'
+        'stackalloc'
+        'static'
+        'string'
+        'struct'
+        'switch'
+        'this'
+        'throw'
+        'try'
+        'typeof'
+        'uint'
+        'ulong'
+        'unchecked'
+        'unsafe'
+        'ushort'
+        'using'
+        'virtual'
+        'void'
+        'volatile'
+        'while'
+
+// A.1.8 Literals
+//test
+literal::
+        integer-literal 
+		real-literal 
+        character-literal
+        string-literal
+        predefined-literal
+
+predefined-literal::
+        boolean-literal
+        null-literal
+
++boolean-literal::
+        'true'
+        'false'
+
+integer-literal::
+    (decimal-integer-literal != real-literal)
+    hexadecimal-integer-literal
+
++decimal-integer-literal::
+    decimal-digits   [integer-type-suffix]
+
+decimal-digits::
+    decimal-digit*
+
+decimal-digit::  
+    ('0' ?! 'x')  
+	'1'  
+	'2'  
+	'3'  
+	'4'  
+	'5'  
+	'6'  
+	'7'  
+	'8'  
+	'9'
+
+integer-type-suffix::  
+    'U'  
+	'u'  
+	'L'  
+	'l'  
+	'UL'  
+	'Ul'  
+	'uL'  
+	'ul'  
+	'LU'  
+	'Lu'  
+	'lU'  
+	'lu'
+
++hexadecimal-integer-literal::
+    '0x'   hex-digits   [integer-type-suffix]
+
+hex-digits::
+    hex-digit*
+
+hex-digit:: 
+    '0'  
+	'1'  
+	'2'  
+	'3'  
+	'4'  
+	'5'  
+	'6'  
+	'7'  
+	'8'  
+	'9'  
+	'A'  
+	'B'  
+	'C'  
+	'D'  
+	'E'  
+	'F'  
+	'a'  
+	'b'  
+	'c'  
+	'd'  
+	'e'  
+	'f'
+
++real-literal::
+        decimal-digits   '.'   decimal-digits   [exponent-part]   [real-type-suffix]
+        '.'   decimal-digits   [exponent-part]   [real-type-suffix]
+        decimal-digits   exponent-part   [real-type-suffix]
+        decimal-digits   real-type-suffix
+
+exponent-part::
+        'e'   [sign]   decimal-digits
+        'E'   [sign]   decimal-digits
+
+sign:: 
+    '+'  
+	'-'
+
+real-type-suffix:: 
+    'F'  
+	'f'  
+	'D'  
+	'd'  
+	'M'  
+	'm'
+
++character-literal::
+    ''''   character   ''''
+
+character::
+    single-character
+    simple-escape-sequence
+    hexadecimal-escape-sequence
+    unicode-character-escape-sequence
+
+single-character::
+   ! ( 0x0027, 0x005C, new-line-character )
+
+simple-escape-sequence::  
+    '\'''  
+	'\"'  
+	'\\'  
+	'\0'  
+	'\a'  
+	'\b'  
+	'\f'  
+	'\n'  
+	'\r'  
+	'\t'  
+	'\v'
+
+hexadecimal-escape-sequence::
+        '\x' hex-digit	[hex-digit]	[hex-digit]   [hex-digit]
+
++string-literal::
+        regular-string-literal
+        verbatim-string-literal
+
+regular-string-literal::
+        '"'   [regular-string-literal-characters]   '"'
+
+regular-string-literal-characters::
+        regular-string-literal-character*
+
+regular-string-literal-character::
+        single-regular-string-literal-character
+        simple-escape-sequence
+        hexadecimal-escape-sequence
+        unicode-character-escape-sequence
+
+single-regular-string-literal-character::
+        ! ('"', '\', new-line-character)
+
+verbatim-string-literal::
+        '@"'   [verbatim-string-literal-characters]   '"'
+
+verbatim-string-literal-characters::
+        verbatim-string-literal-character*
+
+verbatim-string-literal-character::
+        single-verbatim-string-literal-character
+        quote-escape-sequence
+
+single-verbatim-string-literal-character::
+        ! ('"')
+
+quote-escape-sequence::
+        '""'
+
++null-literal::
+    'null'
+
+// A.1.9 Operators and punctuators
+
+operator-or-punctuator:: 
+    '{'		
+	'}'		
+	'['		
+	']'		
+	'('
+    ')'
+	('.' ?! decimal-digit) 		
+	','		
+	':'		
+	';'
+    '+'		
+	'-'		
+	'*'		
+	'/'		
+	'%'
+    '&'		
+	'|'		
+	'^'		
+	'!'		
+	'~'
+    '='		
+	'<'		
+	'>'		
+	'?'	
+	'??'
+	'++'
+    '--'		
+	'&&'		
+	'||'		
+    '=='		
+	'!='		
+	'<='		
+	'>='		
+	'+='
+    '-='		
+	'*='		
+	'/='		
+	'%='		
+	'&='
+    '|='		
+	'^='		
+	'<<='	        
+	'>>='	        
+	'->'
+	'::'
+	'=>'
+	//('>>' ?! '=')
+	//('<<' ?! '=')
+
+	
+//shift-operator-value::
+//	right-shift
+//	right-shift-assignment
+//	left-shift
+
+
+//+right-shift::
+
+//+right-shift-assignment::
+//	'>>='
+
+//+left-shift::
+//	('<<' ?! '=')
+

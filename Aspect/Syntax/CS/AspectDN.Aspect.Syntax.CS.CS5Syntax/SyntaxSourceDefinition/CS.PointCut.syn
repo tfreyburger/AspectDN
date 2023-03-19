@@ -1,0 +1,28 @@
+﻿//
+// Author:
+//   Thierry FREYBURGER(t.freyburger@@gmail.com)
+//
+// Copyright (c) 2021 - 2017 Thierry FREYBURGER
+//
+//
+// pointcut declaration	
++pointcut-declaration:
+	pointcut-type identifier  ':' pointcut-expression ';'
+
++pointcut-expression:
+	expression
+
++pointcut-type:
+	'assemblies' 
+	'classes'  
+	'interfaces'
+	'methods'
+	'fields'
+	'properties'
+	'events'
+	'delegates'
+	'structs'
+	'exceptions'
+	'constructors'
+	'enums'
+

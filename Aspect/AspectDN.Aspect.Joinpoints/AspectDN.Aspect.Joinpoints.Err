@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Errors>
+  <Error id="UndefinedTargetAssembly" code="SY0001" level="100" >
+    <en value ="The target assembly {0] is unknown"/>
+  </Error>
+  <Error id="UndefinedTypeDefinition" code="SY0001" level="100" >
+    <en value ="The target type {0] is not a kind of type known by the weaver"/>
+  </Error>
+  <Error id="UndefinedMethodDefinition" code="SY0001" level="100" >
+    <en value ="The target method {0] is not a kind of method known by the weaver"/>
+  </Error>
+  <Error id="UndefinedSemanticAttributes" code="SY0001" level="100" >
+    <en value ="The semantic attributes {0] of the method {1} is known by the weaver"/>
+  </Error>
+  <Error id="UndefinedMemberOrVarOrArg" code="SY0001" level="100" >
+    <en value ="The member is not recognised by the weaver at instruction {0] of the method {1}"/>
+  </Error>
+  
+</Errors>

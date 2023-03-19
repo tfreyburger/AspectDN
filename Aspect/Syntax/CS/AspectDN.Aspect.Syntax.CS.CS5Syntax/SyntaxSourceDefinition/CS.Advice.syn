@@ -1,0 +1,115 @@
+﻿//
+// Author:
+//   Thierry FREYBURGER(t.freyburger@@gmail.com)
+//
+// Copyright (c) 2021 - 2017 Thierry FREYBURGER
+//
+//
+
+// advice
+advice-declaration:
+	advice-type-members-declaration
+	advice-code-declaration
+	advice-change-value-declaration
+	advice-interface-members-declaration 
+	advice-enum-members-declaration
+	advice-types-declaration
+	advice-attributes-declaration
+
+// advice member
++advice-type-members-declaration:
+	'advice' 'type' &'members' identifier advice-type-members-block 
+
+advice-type-members-block:
+	&'{' [prototype-members-declaration] [advice-type-members] '}'
+
+
+advice-type-members:
+	advice-type-member
+	advice-type-members advice-type-member
+
+advice-type-member:
+	constant-declaration
+	field-declaration
+	method-declaration
+	property-declaration
+	event-declaration
+	indexer-declaration
+	advice-operator-declaration
+	advice-constructor-declaration
+	advice-destructor-declaration
+	advice-static-constructor-declaration
+
++advice-types-declaration:
+	'advice' 'types' identifier '{' [type-declaration*] '}' [';']
+
+// advice member
++advice-interface-members-declaration:
+	'advice' &'interface' 'members' identifier advice-interface-members-block 
+
+advice-interface-members-block:
+	&'{' [prototype-members-declaration] [advice-interface-members] '}'
+
+advice-interface-members:
+	interface-member-declaration
+	advice-interface-members interface-member-declaration
+
+// advice code
++advice-code-declaration:
+	'advice' &'code' identifier advice-code-block	
+
+advice-code-block:
+	'{'  [prototype-members-declaration] [statement-list]   '}'
+
+// advice stack
++advice-change-value-declaration:
+	'advice' &'change' 'value' identifier advice-change-value-block	
+
+// advice change value
+advice-change-value-block:
+	type ':'  '{' [prototype-members-declaration] [statement-list]   '}'	
+
+// enum advice
++advice-enum-members-declaration:
+	'advice' &'enum' 'members' identifier enum-body
+
++advice-attributes-declaration:
+	'advice' &'attributes' identifier advice-attributes-block
+
+advice-attributes-block:
+	'{' [prototype-members-declaration] [attribute-sections] '}'
+
+// around declarator 
++around-statement:
+	'[' &'around' 'anchor' ']' ';'
+
++advice-constructor-declaration:
+	[attributes]   [constructor-modifiers]   '('   [formal-parameter-list]   ')'   [constructor-initializer]  constructor-body
+	
++advice-destructor-declaration:
+	[attributes]   [destructor-modifiers]   '~'    '('   ')'    destructor-body
+
++advice-static-constructor-declaration:
+	[attributes]   static-constructor-modifiers  '('   ')'   static-constructor-body
+
+advice-operator-declaration:
+	advice-unary-operator-declarator
+	advice-binary-operator-declarator
+	advice-conversion-operator-declarator
+
++advice-unary-operator-declarator:
+	[attributes]   operator-modifiers [return-type]   'operator'   overloadable-unary-operator   '('  advice-operator-declarator-parameter  ')' operator-body
+
++advice-operator-declarator-parameter:
+	type   identifier 
+	identifier 
+
++advice-binary-operator-declarator:
+	[attributes]   operator-modifiers [return-type]   'operator'   overloadable-binary-operator   '('   advice-operator-declarator-parameter  ','   advice-operator-declarator-parameter   ')' operator-body
+
++advice-conversion-operator-declarator:
+	[attributes]   operator-modifiers conversion-operator-type   'operator'   [return-type]   '('   advice-operator-declarator-parameter   ')' operator-body
+
+
+
+

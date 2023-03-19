@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Errors>
+
+  <Error id="NotImplementedException" code="AOP1001" level="100" >
+    <en value ="Not implemented Expcetion '{0}'"/>
+  </Error>
+  <Error id="NotSupportedException" code="AOP1002" level="100" >
+    <en value ="Not Supported exception '{0}'"/>
+  </Error>
+  <Error id="StackError" code="AOP1002" level="100" >
+    <en value ="Stack error encounter in '{0}'"/>
+  </Error> 
+</Errors>

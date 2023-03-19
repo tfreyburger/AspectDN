@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Errors>
+  <Error id="InvalidPointcutReference" code="SY0001" level="100" >
+    <en value ="Invalid Pointcut'{0}' or assembly not found '{1}'"/>
+  </Error>
+  <Error id="InvalidAdviceReference" code="SY0001" level="100" >
+    <en value ="Invalid Advice'{0}' or assembly not found '{1}'"/>
+  </Error> 
+  
+</Errors>

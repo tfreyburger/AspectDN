@@ -1,0 +1,8 @@
+﻿<Errors>
+  <Error id="UnknowmReferencedAssembly" code="SY0001" level="100" >
+    <en value ="Assembly {0} is not reference"/>
+  </Error>
+	<Error id="UnknownCompilerAssemblyFilename" code="SY0001" level="100" >
+		<en value ="Compiler Assembly {0} is not found. \n {1}"/>
+	</Error>
+</Errors>

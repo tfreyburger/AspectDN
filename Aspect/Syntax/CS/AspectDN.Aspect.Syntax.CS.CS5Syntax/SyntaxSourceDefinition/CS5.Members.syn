@@ -1,0 +1,619 @@
+
+type-declaration:
+	class-declaration
+	struct-declaration
+	interface-declaration
+	enum-declaration
+	delegate-declaration
+		
+
+// Classes
++class-declaration:
+	[attributes]   [class-modifiers]    'class'   identifier   [type-parameter-list] [class-base] [type-parameter-constraints-clauses] class-body [';']
+
+class-modifiers:
+	class-modifier
+	class-modifiers   class-modifier
+
++class-modifier:
+	'new'
+	'public'
+	'internal'
+	'protected'
+	'internal'
+	'private'
+	'abstract'
+	'sealed'
+	'static'
+
++type-parameter-list:
+	'<'   type-parameters   '>'
+
+type-parameters:
+	type-parameter-item
+	type-parameters   ','   type-parameter-item
+
++type-parameter-item:
+	[attributes]  type-parameter
+
++class-base:
+	':'   base-type
+	':'   interface-type-list
+	':'   base-type   ','   interface-type-list
+
+interface-type-list: 
+	interface-type 
+	interface-type-list   ','   interface-type 
+
++interface-type: 
+	type 
+
++base-type:
+	type
+
+type-parameter-constraints-clauses:
+	type-parameter-constraints-clause
+	type-parameter-constraints-clauses   type-parameter-constraints-clause
+
++type-parameter-constraints-clause:
+	'where'   type-parameter   ':'   type-parameter-constraints
+
+type-parameter-constraints:
+	primary-constraint
+	secondary-constraints
+	constructor-constraint
+	primary-constraint   ','   secondary-constraints
+	primary-constraint   ','   constructor-constraint
+	secondary-constraints   ','   constructor-constraint
+	primary-constraint   ','   secondary-constraints   ','   constructor-constraint
+
+primary-constraint:
+	type-parameter-constraint-type
+	type-parameter-constraint-class-or-struct
+	
++type-parameter-constraint-type:
+	type-parameter
+	type
+	
+
++type-parameter-constraint-class-or-struct:
+	'class'
+	'struct'
+
+secondary-constraints:
+	type-parameter-constraint-type
+	secondary-constraints   ','   	type-parameter
+
+
++constructor-constraint:
+	'new'   '('   ')'
+
+class-body:
+	'{'   [class-member-declarations]   '}'
+
+class-member-declarations:
+	class-member-declaration
+	class-member-declarations   class-member-declaration
+
+class-member-declaration:
+	constant-declaration
+	field-declaration
+	method-declaration
+	property-declaration
+	event-declaration
+	indexer-declaration
+	operator-declaration
+	constructor-declaration
+	destructor-declaration
+	static-constructor-declaration
+	type-declaration
+
++constant-declaration:
+	[attributes]   [constant-modifiers]  constant-keyword  type   constant-declarators   ';'
+
+constant-keyword:
+	'const'
+
+constant-modifiers:
+	constant-modifier
+	constant-modifiers   constant-modifier
+
++constant-modifier:
+	'new'
+	'public'
+	'internal'
+	'protected'
+	'internal'
+	'private'
+
+constant-declarators:
+	constant-declarator
+	constant-declarators   ','   constant-declarator
+
++constant-declarator:
+	identifier   '='   constant-expression
+
++field-declaration:
+	[attributes]   [field-modifiers]   type   variable-declarators   ';'
+
+field-modifiers:
+	field-modifier
+	field-modifiers   field-modifier
+
++field-modifier:
+'new'
+'public'
+'internal'
+'protected'
+'private'
+'static'
+'readonly'
+'volatile'
+
+variable-declarators:
+	variable-declarator
+	variable-declarators   ','   variable-declarator
+
++variable-declarator:
+	identifier
+	identifier   '='   variable-initializer
+
++method-declaration:
+	method-header   method-body
+
+method-header:
+	[attributes]   [method-modifiers]    return-type   member-name   [type-parameter-list] '(' [formal-parameter-list] ')'   [type-parameter-constraints-clauses]
+
+
+method-modifiers:
+	method-modifier
+	method-modifiers   method-modifier
+
++method-modifier:
+'new'	
+'public'
+'internal'
+'protected'
+'internal'
+'private'
+'static'
+'virtual'
+'sealed'
+'override'
+'abstract'
+'extern'
+
++return-type:
+	type
+	'void'
+
++member-name:
+	identifier
+	//type   '.'   identifier
+	namespace-or-type-name
+
+
+method-body:
+	block
+	';'
+
++formal-parameter-list:
+	fixed-parameters
+	fixed-parameters   ','   parameter-array
+	parameter-array
+
+fixed-parameters:
+	fixed-parameter
+	fixed-parameters   ','   fixed-parameter
+
++fixed-parameter:
+	[attributes]   [parameter-modifier]   type   identifier   [default-argument] 
+
+default-argument:
+	'='  expression
+
++parameter-modifier:
+'ref'
+'out'
+'this'
+
++parameter-array:
+	[attributes]   'params'   array-type   identifier
+
++property-declaration:
+	[attributes]   [property-modifiers]   type   member-name   '{'   accessor-declarations   '}'
+
+property-modifiers:
+	property-modifier
+	property-modifiers   property-modifier
+
++property-modifier:
+	'new'
+	'public'
+	'internal'
+	'protected'
+	'internal'
+	'private'
+	'static'
+	'virtual'
+	'sealed'
+	'override'
+	'abstract'
+	'extern'
+
+accessor-declarations:
+	get-accessor-declaration   [set-accessor-declaration]
+	set-accessor-declaration   [get-accessor-declaration]
+
++get-accessor-declaration:
+	[attributes]   [accessor-modifier]    'get'   accessor-body
+
++set-accessor-declaration:
+	[attributes]   [accessor-modifier]   'set'   accessor-body
+
++accessor-modifier:
+	'protected'
+	'internal'
+	'private'
+	'protected'   'internal'
+	'internal '  'protected'
+
+accessor-body:
+	block
+	';'
+
+event-declaration:
+	event-field-declaration
+	event-property-declaration
+
++event-field-declaration:
+	[attributes]   [event-modifiers]   'event'   type   variable-declarators   ';'
+	
++event-property-declaration:
+	[attributes]   [event-modifiers]   'event'   type   member-name   '{'   event-accessor-declarations   '}'
+
+event-modifiers:
+	event-modifier
+	event-modifiers   event-modifier
+
++event-modifier:
+	'new'
+	'public'
+	'internal'
+	'protected'
+	'private'
+	'static'
+	'virtual'
+	'sealed'
+	'override'
+	'abstract'
+	'extern'
+
+event-accessor-declarations:
+	add-accessor-declaration   remove-accessor-declaration
+	remove-accessor-declaration   add-accessor-declaration
+
++add-accessor-declaration:
+	[attributes]   'add'   block
+
++remove-accessor-declaration:
+	[attributes]   'remove'   block
+
++indexer-declaration:
+	[attributes]   [indexer-modifiers]   type   [indexer-explicit-type]   'this'   '['   formal-parameter-list   ']'   '{'   accessor-declarations   '}'
+
+indexer-modifiers:
+	indexer-modifier
+	indexer-modifiers   indexer-modifier
+
++indexer-modifier:
+	'new'
+	'public'
+	'internal'
+	'protected'
+	'internal'
+	'private'
+	'virtual'
+	'sealed'
+	'override'
+	'abstract'
+	'extern'
+
+
++indexer-explicit-type:
+	type '.' 
+
+operator-declaration:
+	unary-operator-declarator
+	binary-operator-declarator
+	conversion-operator-declarator
+
+
+//+unary-operator-declaration
+//	[attributes]   operator-modifiers   unary-operator-declarator   operator-body
+
+
+operator-modifiers:
+	operator-modifier
+	operator-modifiers   operator-modifier
+
++operator-modifier:
+'public'
+'internal'
+'static'
+'extern'
+
+
++unary-operator-declarator:
+	[attributes]   operator-modifiers return-type   'operator'   overloadable-unary-operator   '('   operator-param-type1   operator-param-identifier1   ')' operator-body
+
++operator-param-type1:
+	type
+
++operator-param-identifier1:
+	identifier
+
++overloadable-unary-operator:  
+	'+'   
+	'-'   
+	'!'   
+	'~'   
+	'++'   
+	'--'   
+	'true'   
+	'false'
+
++binary-operator-declarator:
+	[attributes]   operator-modifiers return-type   'operator'   overloadable-binary-operator   '('   operator-param-type1   operator-param-identifier1   ','   operator-param-type2   operator-param-identifier2   ')' operator-body
+
++operator-param-type2:
+	type
+
++operator-param-identifier2:
+	identifier
+
++overloadable-binary-operator:
+		'+'
+		'-'
+		'*'
+		'/'
+		'%'
+		'&'
+		'|'
+		'^'
+		'>'+'>'
+		'<'+'<'
+		'=='
+		'!='
+		'>'
+		'<'
+		'>='
+		'<='
+
++conversion-operator-declarator:
+	[attributes]   operator-modifiers conversion-operator-type   'operator'   return-type   '('   operator-param-type1   operator-param-identifier1    ')' operator-body
+
++conversion-operator-type:
+	'explicit' 
+	'implicit'
+
+operator-body:
+	block
+	';'
+
++constructor-declaration:
+	[attributes]   [constructor-modifiers]   constructor-declarator   constructor-body
+
+constructor-modifiers:
+	constructor-modifier
+	constructor-modifiers   constructor-modifier
+
++constructor-modifier:
+	'public'
+	'internal'
+	'protected'
+	'private'
+	'extern'
+
+constructor-declarator:
+	identifier   '('   [formal-parameter-list]   ')'   [constructor-initializer]
+
++constructor-initializer:
+	':'   constructor-initializer-modifier [argument-list] 
+
+
++constructor-initializer-modifier:
+	'base'   
+	'this'   
+
+constructor-body:
+	block
+	';'
+
++static-constructor-declaration:
+	[attributes]   static-constructor-modifiers  identifier   '('   ')'   static-constructor-body
+
+static-constructor-modifiers:
+	[static-constructor-extern-modifier] static-constructor-static-modifier
+	static-constructor-static-modifier static-constructor-extern-modifier
+
++static-constructor-extern-modifier:
+	'extern'
+
++static-constructor-static-modifier:
+	'static'
+
+static-constructor-body:
+	block
+	';'
+
++destructor-declaration:
+	[attributes]   [destructor-modifiers]   '~'   identifier   '('   ')'    destructor-body
+
++destructor-modifiers:
+	'extern'
+
+destructor-body:
+	block
+	';'
+
+// Structs
++struct-declaration:
+	[attributes] [struct-modifiers] 'struct' identifier [type-parameter-list] [struct-interfaces] [type-parameter-constraints-clauses] struct-body [';']
+
+struct-modifiers:
+	struct-modifier
+	struct-modifiers   struct-modifier
+
++struct-modifier:
+	'public'
+'new'
+'protected'
+'internal'
+'private'
+
++struct-interfaces:
+	':'   interface-type-list
+
+struct-body:
+	'{'   [struct-member-declarations]   '}'
+
+struct-member-declarations:
+	struct-member-declaration
+	struct-member-declarations   struct-member-declaration
+
+struct-member-declaration:
+	constant-declaration
+	field-declaration
+	method-declaration
+	property-declaration
+	event-declaration
+	indexer-declaration
+	operator-declaration
+	constructor-declaration
+	static-constructor-declaration
+	type-declaration
+
+
+// Interfaces
++interface-declaration:
+	[attributes] [interface-modifiers]  'interface' identifier [variant-type-parameter-list] [interface-base] [type-parameter-constraints-clauses] interface-body [';']
+
+interface-modifiers:
+	interface-modifier
+	interface-modifiers   interface-modifier
+
++interface-modifier:
+	'public'
+	'new'
+'internal'
+'protected'
+'internal'
+'private'
+
++variant-type-parameter-list:
+	'<'   variant-type-parameters   '>'
+
+variant-type-parameters:
+	variant-type-parameter
+	variant-type-parameters   ','   variant-type-parameter
+
++variant-type-parameter:
+	[attributes]  [variance-annotation]  type-parameter
+
++variance-annotation:
+	'in'
+	'out'
+
+interface-base:
+	':'   interface-type-list
+
+interface-body:
+	'{'   [interface-member-declarations]   '}'
+
+interface-member-declarations:
+	interface-member-declaration
+	interface-member-declarations   interface-member-declaration
+
+interface-member-declaration:
+	interface-method-declaration
+	interface-property-declaration
+	interface-event-declaration
+	interface-indexer-declaration
+
++interface-method-declaration:
+	[attributes]   [interface-member-modifier]   return-type   identifier   [type-parameter-list] '(' [formal-parameter-list] ')'   [type-parameter-constraints-clauses] ';'
+
++interface-member-modifier:
+	'new'  
+
++interface-property-declaration:
+	[attributes]   [interface-member-modifier]   type   identifier   '{'   interface-accessors   '}'
+
+interface-accessors:
+	interface-get-accessor
+	interface-set-accessor
+	interface-get-accessor   interface-set-accessor
+	interface-set-accessor   interface-get-accessor
+
++interface-get-accessor:
+	[attributes]   'get'   ';'
+
++interface-set-accessor:
+	[attributes]   'set'   ';'
+
++interface-event-declaration:
+	[attributes]   [interface-member-modifier]   'event'   type   identifier   ';'
+
++interface-indexer-declaration:
+	[attributes]   [interface-member-modifier]   type   'this'   '['   formal-parameter-list   ']'   '{'   interface-accessors   '}'
+
+// Enums
++enum-declaration:
+	[attributes]  [enum-modifiers]   'enum'   identifier   [enum-base]   enum-body   [';']
+
++enum-base:
+	':'   enum-base-type 
+
++enum-base-type:
+	integral-type
+
+enum-body:
+	'{'   [enum-member-declarations]   '}'
+	'{'   enum-member-declarations   ','   '}'
+
+enum-modifiers:
+	enum-modifier
+	enum-modifiers   enum-modifier
+
++enum-modifier:
+	'new'
+	'internal'
+	'protected'
+	'private'
+	'public'
+
+enum-member-declarations:
+	enum-member-declaration
+	enum-member-declarations   ','   enum-member-declaration
+
++enum-member-declaration:
+	[attributes]  identifier
+	[attributes]  identifier   '='   constant-expression
+
+// Delegates
++delegate-declaration:
+	[attributes] [delegate-modifiers] 'delegate' return-type identifier [variant-type-parameter-list] '(' [formal-parameter-list] ')' [type-parameter-constraints-clauses] ';'
+
+delegate-modifiers:
+	delegate-modifier
+	delegate-modifiers   delegate-modifier
+
++delegate-modifier:
+	'new'
+	'public'
+	'internal'
+	'protected'
+	'private'
+
+

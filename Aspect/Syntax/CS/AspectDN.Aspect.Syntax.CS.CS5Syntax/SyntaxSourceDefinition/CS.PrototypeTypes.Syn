@@ -1,0 +1,178 @@
+﻿//
+// Author:
+//   Thierry FREYBURGER(t.freyburger@gmail.com)
+//
+// Copyright (c) 2021 - 2017 Thierry FREYBURGER
+//
+//
+
+prototype-type-declarations:
+	prototype-type-declaration
+	prototype-type-declarations prototype-type-declaration
+
+prototype-type-declaration:
+	prototype-class-declaration
+	prototype-interface-declaration
+	prototype-struct-declaration
+	prototype-delegate-declaration
+	prototype-enum-declaration
+
++prototype-class-declaration:
+	'prototype' [prototype-class-modifier] 'class' prototype-identifier [type-parameter-list]  [prototype-base-list] [type-parameter-constraints-clauses] prototype-class-or-struct-body 
+
++prototype-class-modifier:
+	'abstract'
+	'static'
+
+
++prototype-base-list:
+	':'   prototype-base-types
+
+prototype-base-types: 
+	prototype-base-type 
+	prototype-base-types   ','   prototype-base-type
+
++prototype-base-type:
+	type
+
++prototype-struct-declaration:
+	'prototype' 'struct' prototype-identifier [variant-type-parameter-list] [prototype-base-list] prototype-class-or-struct-body 
+
++prototype-interface-declaration:
+	'prototype' 'interface' prototype-identifier [variant-type-parameter-list] [prototype-base-list]  interface-body
+
++prototype-delegate-declaration:
+	'prototype' 'delegate' return-type prototype-identifier [variant-type-parameter-list] '(' [formal-parameter-list] ')' ';'
+
++prototype-enum-declaration:
+	'prototype' 'enum'  prototype-identifier [enum-base]   enum-body   [';']
+
+prototype-class-or-struct-body:
+	'{'   [prototype-type-member-declarations]   '}' [';']
+
+prototype-type-member-declarations:
+	prototype-type-member-declaration
+	prototype-type-member-declarations prototype-type-member-declarations
+
+prototype-type-member-declaration:
+	prototype-type-field-declaration
+	prototype-type-property-declaration
+	prototype-type-indexer-declaration
+	prototype-type-method-declaration	
+	prototype-type-constructor-declaration
+	prototype-type-event-declaration
+	prototype-type-nested-declaration
+
+prototype-type-nested-declaration:
+	prototype-nested-class-declaration
+	prototype-nested-interface-declaration
+	prototype-nested-struct-declaration
+	prototype-nested-delegate-declaration
+	prototype-nested-enum-declaration
+
++prototype-nested-class-declaration:
+	'class' identifier [type-parameter-list]  [prototype-base-list]  prototype-class-or-struct-body 
+
++prototype-nested-struct-declaration:
+	'struct' identifier [variant-type-parameter-list] [prototype-base-list] prototype-class-or-struct-body 
+
++prototype-nested-interface-declaration:
+	'interface' identifier [variant-type-parameter-list] [prototype-base-list]  interface-body
+
++prototype-nested-delegate-declaration:
+	'delegate' return-type identifier [variant-type-parameter-list] '(' [formal-parameter-list] ')' ';'
+
++prototype-nested-enum-declaration:
+	'enum'  identifier [enum-base]   enum-body   [';']
+
++prototype-type-member-modifier:
+	'abstract'
+	'static'
+	'virtual'
+
++prototype-type-field-declaration:
+	[prototype-type-member-modifier] type    identifier  ';'
+
++prototype-type-property-declaration:
+	[prototype-type-member-modifier] type    member-name  '{'   prototype-property-accessor-declarations   '}' [';']
+
+prototype-property-accessor-declarations:
+	prototype-get-accessor-declaration   [prototype-set-accessor-declaration]
+	prototype-set-accessor-declaration   [prototype-get-accessor-declaration]
+
++prototype-get-accessor-declaration:
+	'get' ';'
+
++prototype-set-accessor-declaration:
+	'set' ';'
+
++prototype-type-method-declaration:
+	[prototype-type-member-modifier] return-type   identifier   [type-parameter-list] '(' [formal-parameter-list] ')'  ';'
+
+prototype-type-event-declaration:
+	prototype-type-event-field-declaration
+	prototype-type-event-property-declaration
+
++prototype-type-event-field-declaration:
+	[prototype-type-member-modifier] 'event'   type   identifier   ';'
+
++prototype-type-event-property-declaration:
+	[prototype-type-member-modifier] 'event'   type   identifier  '{'   prototype-event-accessor-declarations   '}'  [';']
+
+prototype-event-accessor-declarations:
+	prototype-add-accessor-declaration   prototype-remove-accessor-declaration
+	prototype-remove-accessor-declaration   prototype-add-accessor-declaration
+
++prototype-add-accessor-declaration:
+	'add' ';'
+
++prototype-remove-accessor-declaration:
+	'remove' ';'
+
++prototype-type-indexer-declaration:
+	[prototype-type-member-modifier] type    'this'   '['   formal-parameter-list   ']'   '{'   prototype-property-accessor-declarations   '}' [';']
+
++prototype-type-constructor-declaration:
+	aspect-identifier  '('   [formal-parameter-list]   ')'  [prototype-type-constructor-initializer] ';'
+
++prototype-type-constructor-initializer:
+	':'   prototype-type-constructor-initializer-modifier [argument-list] 
+
++prototype-type-constructor-initializer-modifier:
+	'base'   
+
+
+//+prototype-type-delegate-declaration:
+//	'delegate' return-type prototype-member-name  '('   [formal-parameter-list]   ')' ';'  
+
+//+prototype-member-name:
+//	prototype-identifier
+//	type   '.'   prototype-identifier
+
++prototype-mapping-types-declaration:
+	'map' 'types' '{' [prototype-map-type-members] '}' [';']
+
+prototype-map-type-members:
+	prototype-map-type-member
+	prototype-map-type-members ',' prototype-map-type-member
+
++prototype-map-type-member:
+	prototype-type-name '=' target-type-name //[prototype-mappings-of-types]
+
++prototype-type-name:
+	aspect-identifier   [generic-dimension-specifier]
+	prototype-type-name  '.'   aspect-identifier   [generic-dimension-specifier]
+	
+
+//+prototype-namespace-or-type-name:
+//	prototype-identifier
+//	prototype-namespace-or-type-name   '.'   prototype-identifier
+//	namespace-or-type-name   '.'   prototype-identifier
+
+//+prototype-type-name:
+//	type-name 
+
++target-type-name:
+	type 
+
+

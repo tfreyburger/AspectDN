@@ -1,0 +1,83 @@
+﻿// some changes from the ms specification ECMA
+// especially due to complex recursitvity 
+type:
+	none-nullable-type
+	nullable-type 
+//	prototype-type-name-reference
+
++nullable-type:
+	none-nullable-type   '?'
+//	non-nullable-value-type   '?'
+	
+//non-nullable-value-type:
+//	type-name
+
+none-nullable-type:
+	none-array-type
+	array-type
+
++none-array-type:
+	simple-type
+	'object'
+	'dynamic'
+	'string'
+	type-name 	
+
+//+prototype-type-name-reference:
+//	'[' advice-type-name ':' type-name ']'
+
+//advice-type-name:
+//	type-name
+
+simple-type:
+	numeric-type
+	'bool'
+
+numeric-type:	
+	integral-type
+	floating-point-type
+	'decimal'
+
+
+integral-type:
+	'sbyte'
+	'byte'
+	'short'
+	'ushort'
+	'int'
+	'uint'
+	'long'
+	'ulong'
+	'char'
+
+//test	
++predefined-type:
+	'bool'
+	'byte'
+	'char'
+	'decimal'
+	'double'
+	'float'
+	'int'
+	'long'
+	'object'
+	'sbyte'
+	'short'
+	'string'
+	'uint'
+	'ulong'
+	'ushort'
+
+floating-point-type:
+	'float'
+	'double'
+
++array-type: // recursif
+	non-array-type   rank-specifiers //recursif
+
+non-array-type:
+	type
+
+
+
+

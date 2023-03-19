@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Errors>
+  <Error id="NoAdviceIdentifier" code="CSx0001" level="100" >
+    <en value ="Advice with no name or id"/>
+  </Error>
+  <Error id="NoAdviceIdentifier" code="CSx0002" level="100" >
+    <en value ="pointcut with no name or id"/>
+  </Error>
+  <Error id="NoAspectIdentifier" code="CSx0003" level="100" >
+    <en value ="pointcut with no name or id"/>
+  </Error>
+</Errors>

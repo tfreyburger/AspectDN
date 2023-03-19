@@ -1,0 +1,33 @@
+﻿//
+// Author:
+//   Thierry FREYBURGER(t.freyburger@@gmail.com)
+//
+// Copyright (c) 2021 - 2017 Thierry FREYBURGER
+//
+//
+
+// compilation unit
++aspect-compilation-unit:
+	[using-directives] [package-declarations] [package-member-declarations]
+
+//package declaration
+package-declarations:
+	package-declaration 
+	package-declarations package-declaration
+
++package-declaration:
+	&'package' qualified-identifier package-body 
+
+package-body: 
+	&'{' [using-directives]  [package-declarations] [package-member-declarations]   '}'
+	
+package-member-declarations:
+	package-member-declaration
+	package-member-declarations   package-member-declaration
+
+package-member-declaration:
+	pointcut-declaration
+	advice-declaration
+	aspect-declaration
+	prototype-type-declaration
+	prototype-mapping-types-declaration

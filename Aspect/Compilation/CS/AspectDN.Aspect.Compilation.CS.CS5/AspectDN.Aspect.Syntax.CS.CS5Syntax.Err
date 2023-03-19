@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Errors>
+  <Error id="CS5TokenError" code="SY0001" level="100" >
+    <en value="Invalid token Aspect : '{0}'"/>
+  </Error>
+</Errors>
+

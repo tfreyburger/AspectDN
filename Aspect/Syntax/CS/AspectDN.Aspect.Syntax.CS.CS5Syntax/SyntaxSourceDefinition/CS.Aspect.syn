@@ -1,0 +1,269 @@
+﻿//
+// Author:
+//   Thierry FREYBURGER(t.freyburger@@gmail.com)
+//
+// Copyright (c) 2021 - 2017 Thierry FREYBURGER
+//
+//
+
+// aspect declaration
+//+aspect-declaration:
+	//&'aspect' identifier '{' [aspect-members] '}'
+	//&'aspect' identifier ':' aspect-member 
+	//aspect-members	
+
++aspect-declarations:
+	aspect-declaration
+	aspect-declarations aspect-declaration
+
+aspect-declaration:
+	aspect-code-declaration
+	aspect-type-members-declaration	
+	aspect-inherit-declaration
+	aspect-interface-members-declaration
+	aspect-enum-members-declaration
+	aspect-types-declaration
+	aspect-change-value-declaration
+	aspect-attributes-declaration
+
++aspect-code-declaration:
+	identifier '=>' 'extend' &execution-time control-flows aspect-pointcut 'with' aspect-advice-code-named 	[prototype-mappings]  ';' 
+	identifier '=>' 'extend' &execution-time control-flows aspect-pointcut 'with' aspect-advice-code-anonymous  [';']
+	identifier '=>' 'extend' &execution-time control-flows aspect-pointcut 'with' aspect-advice-code-anonymous  prototype-mappings ';'
+
++aspect-change-value-declaration:
+	identifier '=>' 'change' 'value' 'when' control-flows aspect-pointcut 'with' aspect-advice-changevalue-named 	[prototype-mappings]  ';' 
+	identifier '=>' 'change' 'value' 'when' control-flows aspect-pointcut 'with' aspect-advice-changevalue-anonymous  [';']
+	identifier '=>' 'change' 'value' 'when' control-flows aspect-pointcut 'with' aspect-advice-changevalue-anonymous  [prototype-mappings]  ';'
+
++aspect-type-members-declaration:	
+	identifier '=>' 'extend' aspect-pointcut 'with' 'type' 'members' aspect-advice-type-members-named [aspect-type-member-modifiers-declaration] [prototype-mappings]  ';'  	
+	identifier '=>' 'extend' aspect-pointcut 'with' 'type' 'members' aspect-advice-type-members-anonymous [';']
+	identifier '=>' 'extend' aspect-pointcut 'with' 'type' 'members' aspect-advice-type-members-anonymous aspect-type-member-modifiers-declaration [prototype-mappings]  ';'
+	identifier '=>' 'extend' aspect-pointcut 'with' 'type' 'members' aspect-advice-type-members-anonymous prototype-mappings  ';' 
+
+aspect-type-member-modifiers-declaration:
+	'modifiers' ':' aspect-type-member-modifiers
+
+aspect-type-member-modifiers:
+	aspect-type-member-modifier
+	aspect-type-member-modifiers ',' aspect-type-member-modifier
+
++aspect-type-member-modifier:
+	'new'
+	'override'
+
++aspect-types-declaration:	
+	identifier '=>' 'extend' aspect-pointcut 'with' 'types' aspect-advice-type-named  aspect-type-target-namespace [prototype-mappings-of-types] ';'  
+	identifier '=>' 'extend' aspect-pointcut 'with' 'types' aspect-advice-type-named [prototype-mappings-of-types]  ';'  
+	identifier '=>' 'extend' aspect-pointcut 'with' 'types' aspect-advice-type-anonymous aspect-type-target-namespace [prototype-mappings-of-types] ';'
+	identifier '=>' 'extend' aspect-pointcut 'with' 'types' aspect-advice-type-anonymous  [';']
+	identifier '=>' 'extend' aspect-pointcut 'with' 'types' aspect-advice-type-anonymous prototype-mappings-of-types ';'
+
+aspect-type-target-namespace:
+	 'namespace'  'target' qualified-identifier
+
++aspect-inherit-declaration:
+	identifier '=>'  aspect-pointcut &'inherit' 'from' aspect-advice-inherit-anonymous [override-constructor-declaration-section] [prototype-mappings] ';' 
+
++aspect-interface-members-declaration:	
+	identifier '=>' 'extend' aspect-pointcut 'with' &'interface' 'members' aspect-advice-interface-members-named  [prototype-mappings] ';'  
+	identifier '=>' 'extend' aspect-pointcut 'with' &'interface' 'members' aspect-advice-interface-members-anonymous [';']
+	identifier '=>' 'extend' aspect-pointcut 'with' &'interface' 'members' aspect-advice-interface-members-anonymous prototype-mappings';'
+
++aspect-enum-members-declaration:	
+	identifier '=>' 'extend' aspect-pointcut 'with' &'enum' 'members' aspect-advice-enum-members-named   ';'  
+	identifier '=>' 'extend' aspect-pointcut 'with' &'enum' 'members' aspect-advice-enum-members-anonymous [';']
+
++aspect-attributes-declaration:
+	identifier '=>' 'extend' aspect-pointcut 'with' &'attributes' aspect-advice-attributes-named  [prototype-mappings]  ';'  
+	identifier '=>' 'extend' aspect-pointcut 'with' &'attributes' aspect-advice-attributes-anonymous [';']
+	identifier '=>' 'extend' aspect-pointcut 'with' &'attributes' aspect-advice-attributes-anonymous  prototype-mappings  ';'
+
+base-type-list:
+	base-type
+	interface-type-list
+	base-type   ','   interface-type-list
+
++execution-time:
+	'before'
+	'after'
+	'around'
+
++control-flows:
+	control-flow
+	control-flows  control-flow
+
++control-flow:
+	'set'
+	'get'
+	'body'
+	'call'
+	'throw'
+	//'return'
+	'add'
+	'remove'
+	//'raise'
+
+aspect-pointcut-anonymous:
+	aspect-pointcut-common-anonymous
+	aspect-pointcut-this-type-members-anonymous
+	aspect-pointcut-this-code-anonymous
+	
++aspect-pointcut-common-anonymous:
+	pointcut-type ':' pointcut-expression
+
++aspect-pointcut-this-type-members-anonymous:
+	'prototype' 'type' namespace-or-type-name
+
++aspect-pointcut-this-code-anonymous:
+	 pointcut-type ':'  pointcut-expression 'in' 'prototype' 'type' namespace-or-type-name 
+
+aspect-pointcut:
+	aspect-pointcut-named
+	aspect-pointcut-anonymous
+
++aspect-pointcut-named:
+	qualified-identifier 
+
++aspect-advice-code-named:
+	qualified-identifier
+
++aspect-advice-code-anonymous:
+	'{' [prototype-members-declaration] [statement-list]   '}'
+	
++aspect-advice-changevalue-named:
+	qualified-identifier  
+
++aspect-advice-changevalue-anonymous:
+	type ':' '{' [prototype-members-declaration]  [statement-list]   '}'
+
+prototype-mappings:
+	'where'  prototype-mapping-items
+
+prototype-mappings-of-types:
+	'where'  prototype-mapping-types
+
+prototype-mapping-types:
+	prototype-mapping-type
+	prototype-mapping-types ',' prototype-mapping-type
+
+prototype-mapping-type:
+	prototype-type-parameter-mapping
+	prototype-type-reference-mapping
+
+
+prototype-type-reference-mappings:
+	prototype-type-reference-mapping
+	prototype-type-reference-mappings ',' prototype-type-reference-mapping
+
+prototype-mapping-items:
+	prototype-mapping-item
+	prototype-mapping-items ',' prototype-mapping-item
+
+prototype-mapping-item:
+	prototype-member-mapping
+	prototype-type-parameter-mapping
+	prototype-type-reference-mapping
+
++prototype-member-mapping:
+	prototype-identifier '=' prototype-target-declaration
+
++prototype-type-parameter-mapping:
+	'<' aspect-identifier '>' ':' prototype-type-generic-parameter-target
+	'<' aspect-identifier '>' ':' prototype-method-generic-parameter-target 
+	
++prototype-type-generic-parameter-target:
+	'type' '(' decimal-integer-literal ')'
+	'type' '(' type ')'
+	decimal-integer-literal
+	type
+	
++prototype-method-generic-parameter-target:
+	'method' '(' decimal-integer-literal ')'
+	'method' '(' type ')'
+
++prototype-type-reference-mapping:
+	unbound-type-name 'from' namespace-or-type-name
+
+prototype-target-declaration:
+	prototype-target-this-member-declaration	
+	prototype-target-base-member-declaration	
+	prototype-target-member-declaration	
+
++prototype-target-this-member-declaration:	
+	'this' '.' identifier
+
++prototype-target-base-member-declaration:	
+	'base' '.' identifier
+
++prototype-target-member-declaration:	
+	//'this'
+	//'base'
+	simple-name
+
+//prototype-type-parameter-mappings-declaration:
+//	'where' prototype-type-parameter-mappings
+
+prototype-type-parameter-mappings:
+	prototype-type-parameter-mapping
+	prototype-type-parameter-mappings ',' prototype-type-parameter-mapping
+
+override-constructor-declaration-section:
+	'override' 'constructors' override-specific-constructor-declarations
+
+override-specific-constructor-declarations:
+	override-specific-constructor-declaration
+	override-specific-constructor-declarations ',' override-specific-constructor-declaration
+
++override-specific-constructor-declaration:
+	override-specific-constructors ':'  [argument-list] 
+
+override-specific-constructors:
+	override-specific-constructor 
+	override-specific-constructors ',' override-specific-constructor
+
+override-specific-constructor:
+	'('   [formal-parameter-list]  ')'
+
+//prototype-member-name:
+//	identifier
+
+//real-member-name:
+//	identifier
+
++aspect-advice-type-members-named:
+	qualified-identifier 
+
++aspect-advice-type-members-anonymous:
+	'{'[prototype-members-declaration] [advice-type-members] '}'
+
++aspect-advice-interface-members-named:
+	qualified-identifier 
+
++aspect-advice-interface-members-anonymous:
+	advice-interface-members-block 
+
++aspect-advice-enum-members-named:
+	qualified-identifier 
+
++aspect-advice-enum-members-anonymous:
+	enum-body 
+
++aspect-advice-type-named:
+	qualified-identifier 
+
++aspect-advice-type-anonymous:
+	'{'  [type-declaration*] '}'
+
++aspect-advice-attributes-named:
+	qualified-identifier 
+
++aspect-advice-attributes-anonymous:
+	advice-attributes-block 
+
++aspect-advice-inherit-anonymous:
+	base-type-list [prototype-members-declaration] 
+
+//+this-declaration:
+//	'this' 'is' type

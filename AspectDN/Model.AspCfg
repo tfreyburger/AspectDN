@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AspectDN>
+	<Solution	name="Solution"
+				logPath=""
+				originalTargetPath=""
+				outputTargetPath="">
+
+		<!-- c# aspect file to apply  -->
+		<AspectFileNames>
+			<AspectFileName filename =""/>
+		</AspectFileNames>
+
+		<!-- c# aspect project  -->
+		<AspectProjectDeclarations>
+			<AspectProjectDeclaration path =""/>
+		</AspectProjectDeclarations>
+	
+	</Solution>
+
+</AspectDN>

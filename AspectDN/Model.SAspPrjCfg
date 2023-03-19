@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AspectDN>
+	<Project	name="Projet"
+				language=""
+				logPath=""
+				directoryPath=""
+				originalTargetPath=""
+				outputTargetPath="">
+
+		<!-- c# assembly références and aspect file used  in this project -->
+		<FileReferences>
+			<FileReference filename=""/>
+		</FileReferences>
+
+		<!-- c# aspect sources  -->
+		<AspectSourceFiles>
+			<AspectSourceFile filename =""/>
+		</AspectSourceFiles>
+
+	</Project>
+
+</AspectDN>

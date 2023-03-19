@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Errors>
+
+	<Error id="NoProjectConfigurationFile" code="AOP1001" level="100" >
+	<en value ="At least one configuration file has to be passed as parameters"/>
+	</Error>
+	<Error id="ProjectConfigurationFileNotExist" code="AOP1001" level="100" >
+		<en value ="Project configuration file '{0}' doesn't exist"/>
+	</Error>
+	<Error id="BadProjectConfigurationFile" code="AOP1001" level="100" >
+		<en value ="Bad Project configuration file '{0}'. An error occured '{1}'"/>
+	</Error>
+	<!--
+	<Error id="NotExistingAspectSourceFile" code="AOP1001" level="100" >
+		<en value ="aspect source file '{0}' doesn't exists for the solution"/>
+		
+	</Error>
+	-->
+	<Error id="NotExistingAssemblyReference" code="AOP1001" level="100" >
+		<en value ="assembly file '{0}' doesn't exists"/>
+	</Error>
+	<Error id="CompilationError" code="AOP1001" level="100" >
+		<en value ="Compilation errors happended- see log"/>
+	</Error>
+	<Error id="WeavingError" code="AOP1001" level="100" >
+		<en value ="Weaving errors happened - see log"/>
+	</Error>
+	<Error id="WeavingOk" code="AOP1001" level="100" >
+		<en value ="Weaving has been processed successfully"/>
+	</Error>
+</Errors>

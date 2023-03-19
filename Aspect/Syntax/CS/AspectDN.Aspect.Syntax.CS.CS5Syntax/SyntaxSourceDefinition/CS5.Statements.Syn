@@ -1,0 +1,216 @@
+﻿
+// Statements
+statement:
+	labeled-statement
+	declaration-statement
+	embedded-statement
+
+embedded-statement:
+	block
+	empty-statement
+	expression-statement
+	selection-statement
+	iteration-statement
+	jump-statement
+	try-statement
+	checked-statement
+	unchecked-statement
+	lock-statement
+	using-statement 
+	yield-statement
+	around-statement
+
++block:
+	'{'   [statement-list]   '}'
+
+statement-list:
+	statement
+	statement-list   statement
+
++empty-statement:
+	';'
+
++labeled-statement:
+	identifier   ':'   statement
+
+declaration-statement:
+	local-variable-declaration   ';'
+	local-constant-declaration   ';'
+
++local-variable-declaration:
+	local-variable-type   local-variable-declarators
+
+
+local-variable-type:
+	type
+	anonymous-type
+
++anonymous-type:
+	'var'
+
+local-variable-declarators:
+	local-variable-declarator
+	local-variable-declarators   ','   local-variable-declarator
+
++local-variable-declarator:
+	identifier
+	identifier   '='   local-variable-initializer
+
+local-variable-initializer:
+	expression
+	array-initializer
+
++local-constant-declaration:
+	'const'   type   constant-declarators
+
++expression-statement:
+	statement-expression   ';'
+
+statement-expression:
+	invocation-expression
+	object-creation-expression
+	assignment
+	post-increment-expression
+	post-decrement-expression
+	pre-increment-expression
+	pre-decrement-expression
+
+selection-statement:
+	if-statement
+	switch-statement
+
++if-statement:
+	'if'   '('   boolean-expression   ')'   embedded-statement
+	'if'   '('   boolean-expression   ')'   embedded-statement   'else'   embedded-statement
+
++switch-statement:
+	'switch'   '('   expression   ')'   switch-block
+
+switch-block:
+	'{'   [switch-sections]   '}'
+
+switch-sections:
+	switch-section
+	switch-sections   switch-section
+
++switch-section:
+	switch-labels   statement-list
+
+switch-labels:
+	switch-label
+	switch-labels   switch-label
+
++switch-label:
+	'case'   constant-expression   ':'
+	'default'   ':'
+
+iteration-statement:
+	while-statement
+	do-statement
+	for-statement
+	foreach-statement
+
++while-statement:
+	'while'   '('   boolean-expression   ')'   embedded-statement
+
++do-statement:
+	'do'   embedded-statement   'while'   '('   boolean-expression   ')'   ';'
+
++for-statement:
+	'for'   '('   [for-initializer]   ';'   [for-condition]   ';'   [for-iterator]   ')'   embedded-statement
+
++for-initializer:
+	variable-declaration
+	statement-expression-list
+
++variable-declaration:
+	local-variable-type   local-variable-declarators
+	
+
++for-condition:
+	boolean-expression
+
++for-iterator:
+	statement-expression-list
+
+statement-expression-list:
+	statement-expression
+	statement-expression-list   ','   statement-expression
+
++foreach-statement:
+	'foreach'   '('   local-variable-type   identifier   'in'   expression   ')'   embedded-statement
+
+jump-statement:
+	break-statement
+	continue-statement
+	goto-statement
+	return-statement
+	throw-statement
+
++break-statement:
+	'break'   ';'
+
++continue-statement:
+	'continue'   ';'
+
+goto-statement:
+	simple-goto-statement
+	switch-goto-statement
+
++simple-goto-statement:
+	'goto'   identifier   ';'
+
++switch-goto-statement:
+	'goto'   'case'   constant-expression   ';'	
+	'goto'   'default'   ';'
+
++return-statement:
+	'return'   [expression]   ';'
+
++throw-statement:
+	'throw'   [expression]   ';'
+
++try-statement:
+	'try'   block   catch-clauses
+	'try'   block   finally-clause
+	'try'   block   catch-clauses   finally-clause
+
+catch-clauses:
+	specific-catch-clauses   [general-catch-clause]
+	[specific-catch-clauses]   general-catch-clause
+
+specific-catch-clauses:
+	specific-catch-clause
+	specific-catch-clauses   specific-catch-clause
+
++specific-catch-clause:
+	'catch'   '('   type   [identifier]   ')'   block
+
++general-catch-clause:
+	'catch'   block
+
++finally-clause:
+	'finally'   block
+
++checked-statement:
+	'checked'   block
+
++unchecked-statement:
+	'unchecked'   block
+
++lock-statement:
+	'lock'   '('   expression   ')'   embedded-statement
+
++using-statement:
+	'using'   '('    resource-acquisition   ')'    embedded-statement
+
+resource-acquisition:
+	local-variable-declaration
+	expression
+
+//test OK
++yield-statement:
+	'yield'   'return'   expression   ';'
+	'yield'   'break'   ';'
+
+

@@ -1,0 +1,78 @@
+//
+// Author:
+//   Thierry FREYBURGER(t.freyburger@gmail.com)
+//
+// Copyright (c) 2021 - 2017 Thierry FREYBURGER
+//
+//
+
+// virtual member
+prototype-members-declaration:
+	'prototype' &'members' '{'  [prototype-member-declarations] '}'  
+
+prototype-member-declarations:
+	prototype-member-declaration 
+	prototype-member-declarations  prototype-member-declaration
+
+prototype-member-declaration:
+	prototype-field-declaration
+	prototype-method-declaration
+	prototype-event-declaration
+	prototype-indexer-declaration
+	prototype-type-parameter-declaration
+	prototype-constructor-declaration
+	//prototype-delegate-declaration
+
++prototype-field-declaration:
+	[prototype-member-modifier] type   prototype-identifier  ';'
+
++prototype-member-modifier:
+	'static'
+
++prototype-method-declaration:
+	[prototype-member-modifier] return-type   prototype-identifier    [type-parameter-list] '(' [formal-parameter-list] ')'  ';'
+
+prototype-event-declaration:
+	prototype-event-field-declaration
+	prototype-event-property-declaration
+
++prototype-event-field-declaration:
+	[prototype-member-modifier] 'event'   type   prototype-identifier   ';'
+
++prototype-event-property-declaration:
+	[prototype-member-modifier] 'event'   type   prototype-identifier  '{'   prototype-event-accessor-declarations   '}' 
+
+//prototype-accessor-declarations:
+//	prototype-add-accessor-declaration   [prototype-remove-accessor-declaration]
+//	prototype-remove-accessor-declaration   [prototype-add-accessor-declaration]
+
+
+//prototype-add-accessor-declaration: 
+//	'add' ';'
+	
+//prototype-remove-accessor-declaration:
+//	'remove' ';'
+	
++prototype-type-parameter-declaration:
+	'<'   prototype-identifier '>' ';'
+
++prototype-indexer-declaration:
+	[prototype-member-modifier] type    '#this'   '['   formal-parameter-list   ']'   '{'   prototype-property-accessor-declarations   '}' [ ';']
+
+
+//prototype-accessor-declarations:
+//	prototype-get-accessor-declaration   [prototype-set-accessor-declaration]
+//	prototype-set-accessor-declaration   [vritual-get-accessor-declaration]
+
++prototype-constructor-declaration:
+	'#'   '('   [formal-parameter-list]   ')'  ';'
+
+
+aspect-identifier:
+	identifier
+	prototype-identifier
+
+
+
+
+

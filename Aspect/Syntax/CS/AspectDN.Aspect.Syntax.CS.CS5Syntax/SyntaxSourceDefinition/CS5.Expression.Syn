@@ -1,0 +1,538 @@
+﻿expression: 
+	non-assignment-expression
+	assignment
+
+non-assignment-expression:
+	conditional-expression
+	lambda-expression
+	query-expression
+	
+constant-expression:
+	expression
+
+boolean-expression:
+	expression
+
+primary-expression: 
+	primary-no-array-creation-expression
+	array-creation-expression
+
+primary-no-array-creation-expression:
+	boolean-literal
+    hexadecimal-integer-literal
+	decimal-integer-literal
+    real-literal
+    character-literal
+    string-literal
+    null-literal
+	simple-name
+	parenthesized-expression
+	member-access
+	invocation-expression
+	this-access
+	base-access
+	element-access
+	post-increment-expression
+	post-decrement-expression
+	object-creation-expression
+	delegate-creation-expression
+	anonymous-object-creation-expression
+	typeof-expression
+	checked-expression
+	unchecked-expression 
+	default-value-expression
+	anonymous-method-expression
+	//changevalue-expression
+
+//test
++parenthesized-expression:
+	'(' expression   ')'
+
+//test
+%member-access:
+	primary-expression   '.'   simple-name [type-argument-list] 
+	predefined-type   '.'  simple-name [type-argument-list] 
+	qualified-alias-member   '.'  aspect-identifier [type-argument-list]
+
+//test
+%invocation-expression:
+	primary-expression   argument-list 
+
+//test
++argument-list:
+	'(' [arguments] ')'
+
+arguments:
+	argument
+	arguments   ','   argument
+
+//test
++argument:
+	[argument-name]   argument-value
+	
++argument-name:
+	identifier   ':'
+
+argument-value:
+	variable-reference
+	argument-modifier variable-reference
+//	'out'  variable-reference
+
+// Variables
+variable-reference:
+	expression
+
+//test
++argument-modifier:
+	('ref', 'out')
+
+//test
++element-access:
+	primary-no-array-creation-expression   '['   arguments  ']'
+
+//test
++this-access:
+	'this'
+
+//test
+// change from the original
++base-access:
+	'base'   '.'   identifier 
+	'base'   '['   arguments   ']'
+	'base'
+
+//test
++post-increment-expression:
+	primary-expression   '++'
+
+//test
++post-decrement-expression:
+	primary-expression   '--'
+
+//test	
++object-creation-expression:
+	'new'   object-creation-expression-type   argument-list    [object-or-collection-initializer] 
+	'new'   object-creation-expression-type  object-or-collection-initializer
+
+object-creation-expression-type:
+	none-array-type
+	'this'
+
+object-or-collection-initializer:
+	object-initializer
+	collection-initializer
+
+//test
++object-initializer:
+	'{'   [member-initializer-list]   '}'
+	'{'   member-initializer-list   ','   '}'
+
+member-initializer-list:
+	member-initializer
+	member-initializer-list   ','   member-initializer
+
+//test
++member-initializer:
+	identifier   '='   initializer-value
+
+initializer-value:
+	expression
+	object-or-collection-initializer
+
+//test
++collection-initializer:
+	'{'   element-initializer-list   '}'
+	'{'   element-initializer-list   ','   '}'
+	
+element-initializer-list:
+	element-initializer
+	element-initializer-list   ','   element-initializer
+
+//test
+element-initializer:
+	non-assignment-expression
+	'{'   expression-list   '}'
+
+// test
+expression-list:
+	expression
+	expression-list   ','   expression
+
+// Arrays
++array-creation-expression:
+	'new'   non-array-type   '['   expression-list   ']'   [rank-specifiers]   [array-initializer]
+	'new'   array-type   array-initializer 
+	'new'   rank-specifier   array-initializer
+
+rank-specifiers:
+	rank-specifier
+	rank-specifiers   rank-specifier
+
++rank-specifier:
+	'['   [dim-separators]   ']'
+
+dim-separators:
+	dim-separator
+	dim-separators   dim-separator
+
++dim-separator:
+	','
+
++array-initializer:
+	'{'   [variable-initializer-list]   '}'
+	'{'   variable-initializer-list   ','   '}'
+
+variable-initializer-list:
+	variable-initializer
+	variable-initializer-list   ','   variable-initializer
+
++variable-initializer:
+	expression
+	array-initializer
+
+//test
++delegate-creation-expression:
+	'new'   type   '('   expression   ')'
+
+//test
++anonymous-object-creation-expression:
+	'new'   anonymous-object-initializer
+
+anonymous-object-initializer:
+	'{'   [member-declarator-list]   '}'
+	'{'   member-declarator-list   ','   '}'
+
+member-declarator-list:
+	member-declarator
+	member-declarator-list   ','   member-declarator
+
++member-declarator:
+	simple-name
+	member-access
+	base-access 
+	member-declarator-assignment 
+
+member-declarator-assignment:
+	identifier   '='   expression
+
+// test
++typeof-expression:
+	'typeof'   '('   type   ')'
+	'typeof'   '('   unbound-type-name   ')'
+	'typeof' '(' void-type ')'
+
++void-type:
+	'void'
+
+// test 
+unbound-type-name:
+	qualified-unbound-type-name
+	alias-unbound-type-name
+
++qualified-unbound-type-name:
+	identifier   [generic-dimension-specifier]
+	qualified-unbound-type-name  '.'   identifier   [generic-dimension-specifier]
+
++alias-unbound-type-name:
+	identifier  '::'   identifier   [generic-dimension-specifier]
+
+//+unbound-type-name-alias:
+//	'::' 
+
++generic-dimension-specifier:
+	'<'   [commas]   '>'
+
+commas:
+	comma
+	commas   comma
+
++comma:
+	','
+
+//test
++checked-expression:
+	'checked'   '('   expression   ')'
+
+//test
++unchecked-expression:
+	'unchecked'   '('   expression   ')'
+
+//test
++default-value-expression:
+	'default'   '('   type   ')'
+
+//test
++unary-operation-expression:
+	unary-operator unary-expression
+
+unary-expression:
+	primary-expression
+	unary-operation-expression
+	pre-increment-expression
+	pre-decrement-expression
+	cast-expression
+	
+
+//+changevalue-expression:
+//	'[' 'value' ']'
+
+// test
++unary-operator:
+	'+'  
+	'-'   
+	'!'   
+	'~'   
+
+// test
++pre-increment-expression:
+	'++'   unary-expression
+
+//test
++pre-decrement-expression:
+	'--'   unary-expression
+
+//test
++cast-expression:
+	'('   type   ')'   unary-expression
+
+//test
+%multiplicative-expression:
+	unary-expression
+	multiplicative-expression   multiplicative-operator unary-expression
+
+//test
++multiplicative-operator:
+	'*'
+	'/'
+	'%'
+
+//test
+%additive-expression:
+	multiplicative-expression
+	additive-expression   additive-operator multiplicative-expression
+
+//test
++additive-operator:
+	'+'
+	'-'
+
+//test
+%shift-expression:
+	additive-expression 
+	shift-expression   shift-operator additive-expression
+
++shift-operator:
+	'>' + '>'
+	'<' + '<'
+//	'>>'
+//	'<<'
+
+relational-expression:
+	shift-expression
+	shift-relational-expression
+	type-relational-expression
+
+// test
++shift-relational-expression:
+	relational-expression   shift-relational-operator shift-expression
+	
++type-relational-expression:
+	relational-expression   type-relational-operator type
+
++shift-relational-operator:
+	'<'
+	'>'
+	'<='
+	'>='
+
++type-relational-operator:
+	'is'
+	'as'
+
+// test
+%equality-expression:
+	relational-expression
+	equality-expression  equality-operator relational-expression
+
++equality-operator:
+	'=='
+	'!='
+
+%and-expression:
+	equality-expression
+	and-expression   and-expression-op   equality-expression
+
++and-expression-op:
+	'&' 
+
+%exclusive-or-expression:
+	and-expression
+	exclusive-or-expression   exclusive-or-expression-op  and-expression
+
++exclusive-or-expression-op:
+	'^'
+
+%inclusive-or-expression:
+	exclusive-or-expression
+	inclusive-or-expression   inclusive-or-expression-op   exclusive-or-expression
+
++inclusive-or-expression-op:
+	'|'
+
+%conditional-and-expression:
+	inclusive-or-expression
+	conditional-and-expression   conditional-and-expression-op   inclusive-or-expression
+
++conditional-and-expression-op:
+	'&&' 
+
+%conditional-or-expression:
+	conditional-and-expression
+	conditional-or-expression  conditional-or-expression-op   conditional-and-expression
+
++conditional-or-expression-op:
+	'||'
+
+%null-coalescing-expression:
+	conditional-or-expression
+	conditional-or-expression   null-coalescing-expression-op   null-coalescing-expression
+
++null-coalescing-expression-op:
+	'??' 
+
+%conditional-expression:
+	null-coalescing-expression
+	null-coalescing-expression   '?'   expression   ':'   expression
+	
+
+// test
++anonymous-method-expression:
+	'delegate'   [explicit-anonymous-function-signature]   block
+
+explicit-anonymous-function-signature:
+	'('   [explicit-anonymous-function-parameter-list]   ')'
+
+explicit-anonymous-function-parameter-list:
+	explicit-anonymous-function-parameter
+	explicit-anonymous-function-parameter-list   ','   explicit-anonymous-function-parameter
+
++explicit-anonymous-function-parameter:
+	[anonymous-function-parameter-modifier]   type   identifier
+
++anonymous-function-parameter-modifier: 
+	'ref'
+	'out'
+
+lambda-expression:
+	simple-lambda-expression
+	parenthesis-lambda-expression
+
++simple-lambda-expression:
+	implicit-anonymous-function-parameter '=>'   anonymous-function-body
+	explicit-anonymous-function-parameter '=>'   anonymous-function-body
+
++parenthesis-lambda-expression:
+	'('   [implicit-anonymous-function-parameter-list]   ')' '=>'   anonymous-function-body
+	'('   [explicit-anonymous-function-parameter-list]   ')' '=>'   anonymous-function-body
+
+//anonymous-function-signature:
+//	explicit-anonymous-function-signature 
+//	implicit-anonymous-function-signature
+
+//implicit-anonymous-function-signature:
+//	'('   [implicit-anonymous-function-parameter-list]   ')'
+//	implicit-anonymous-function-parameter
+
+implicit-anonymous-function-parameter-list:
+	implicit-anonymous-function-parameter
+	implicit-anonymous-function-parameter-list   ','   implicit-anonymous-function-parameter
+
++implicit-anonymous-function-parameter:
+	identifier
+
++anonymous-function-body:
+	expression
+	block
+
+// test
++query-expression:
+	from-clause   query-body
+
++query-body:
+	[query-body-clauses]   select-or-group-clause   [query-continuation]
+
+query-body-clauses:
+	query-body-clause
+	query-body-clauses   query-body-clause
+
+// test
+query-body-clause:
+	from-clause
+	let-clause
+	where-clause
+	join-clause
+	join-into-clause
+	orderby-clause
+
++from-clause:
+	'from'   identifier   'in'   expression
+	'from'   type   identifier   'in'   expression
+
++let-clause:
+	'let'   identifier   '='   expression
+
++where-clause:
+	'where'   boolean-expression
+
++join-clause:
+	'join'   identifier   'in'   expression   'on'   expression   'equals'   expression 
+	'join'   type   identifier   'in'   expression   'on'   expression   'equals'   expression 
+
++join-into-clause:
+	'join'   identifier   'in'   expression   'on'   expression   'equals'   expression   'into'   identifier
+	'join'   type   identifier   'in'   expression   'on'   expression   'equals'   expression   'into'   identifier
+
++orderby-clause:
+	'orderby'   orderings
+
+orderings:
+	ordering
+	orderings   ','   ordering
+
++ordering:
+	expression    [ordering-direction]
+
++ordering-direction:
+	'ascending'
+	'descending'
+
+
+select-or-group-clause:
+	select-clause
+	group-clause
+
++select-clause:
+	'select'   expression
+
++group-clause:
+	'group'   expression   'by'   expression
+
++query-continuation:
+	'into'   identifier   query-body
+
+// test
++assignment:
+	unary-expression   assignment-operator   expression
+
++assignment-operator:
+	'='
+	'+='
+	'-='
+	'*='
+	'/='
+	'%='
+	'&='
+	'|='
+	'^='
+	'<<='
+	'>>='

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Errors>
+  <Error id="UndefinedTokenType" code="SY0001" level="100" >
+    <en value ="System error - Token '{1}' Type {0} is not supported"/>
+  </Error>
+  <Error id="AdviceCodeTypeMismatch" code="AOP9001" level="100" >
+    <en value ="The code advice {0} define a type {1} which is not the type of the return expression"/>
+  </Error>
+  <Error id="AspectUsageAsType" code="AOP9001" level="100" >
+    <en value ="The advice {0} uses apsect {1} as a type"/>
+  </Error>
+  <Error id="AdviceUsageAsType" code="AOP9001" level="100" >
+    <en value ="The advice {0} uses advice {1} as a type"/>
+  </Error>
+  <Error id="PointcutUsageAsType" code="AOP9001" level="100" >
+    <en value ="The advice {0} uses poinctut {1} as a type"/>
+  </Error>
+  <Error id="SameBaseTypeDefined" code="AOP9001" level="100" >
+    <en value ="Base type name {0} has been defined several times in the same advice"/>
+  </Error>
+  <Error id="TooManyBaseType" code="AOP9001" level="100" >
+    <en value ="More than one base type has been defined in the inheritance advice"/>
+  </Error>
+  <Error id="PrototypeMappingTypeTargetAlreadyDefined" code="AOP9001" level="100" >
+    <en value ="Thpe prototype item {0} has already been mapped"/>
+  </Error>
+  <Error id="BadPrototypeTypeName" code="AOP9001" level="100" >
+    <en value ="The prototype type is not well described or not found"/>
+  </Error>
+  <Error id="PrototypeTypeNotFound" code="AOP9001" level="100" >
+    <en value ="The prototype type {0} has not been defined"/>
+  </Error>
+  <Error id="UndefinedPointcut" code="AOP9001" level="100" >
+    <en value ="Undefined pointcut name '{0}'"/>
+  </Error>
+  <Error id="PointcutMismatch" code="AOP9001" level="100" >
+    <en value ="'{0}' is not a pointcut"/>
+  </Error>
+  <Error id="UndefinedAdvice" code="AOP9001" level="100" >
+    <en value ="Undefined advice name '{0}'"/>
+  </Error>
+  <Error id="AmbigusAdvice" code="AOP9001" level="100" >
+    <en value ="Ambigus advice name '{0}'"/>
+  </Error>
+  <Error id="NotWellFormReferencedAdviceTypeName" code="AOP9001" level="100" >
+    <en value ="'{0}' is not a well form name for an advice type. Must have the name of the advice dot the name of the type"/>
+  </Error>
+  <Error id="AdviceMismatch" code="AOP9001" level="100" >
+    <en value ="'{0}' is not an advice"/>
+  </Error>
+  <Error id="PrototyItemConstructorAlreadyExists" code="AOP9001" level="100" >
+    <en value ="Constructor '{0}' is already defined as a type member in '{1}'"/>
+  </Error>
+  <Error id="PrototyItemIndexerAlreadyExists" code="AOP9001" level="100" >
+    <en value ="Indexer '{0}' is already defined as a type member in {1}"/>
+  </Error>
+  <Error id="UndefinedAdviceType" code="AOP9001" level="100" >
+    <en value ="Undefined advice type '{0}'"/>
+  </Error>
+  <Error id="BadControlFlow" code="AOP9001" level="100" >
+    <en value ="Bad control flow defined"/>
+  </Error>
+  <Error id="BadExecutionTime" code="AOP9001" level="100" >
+    <en value ="Bad execution time defined"/>
+  </Error>
+  <Error id="BadPointcutTypeForAdvice" code="AOP9001" level="100" >
+    <en value ="Pointcut type and advice type are not compatible"/>
+  </Error>
+  <Error id="InterfaceTypeMismatch" code="AOP9001" level="100" >
+    <en value ="Type is not defined as an interface"/>
+  </Error>
+  <Error id="MappingMemberMismatch" code="AOP9001" level="100" >
+    <en value ="The prototype member {0} does not exist in advice"/>
+  </Error>
+  <Error id="MappingTypeMismatch" code="AOP9001" level="100" >
+    <en value ="Type is not defined as an advice type"/>
+  </Error>
+  <Error id="PrototypeMemberNoMap" code="AOP9001" level="100" >
+    <en value ="Prototype member {0} has no mapping defined"/>
+  </Error>
+  <Error id="AdviceTypeNoMap" code="AOP9001" level="100" >
+    <en value ="Advice type {0} has no mapping defined in {1}"/>
+  </Error>
+  <Error id="VitualTypeNoMap" code="AOP9001" level="100" >
+    <en value ="Prototype type {0} has no mapping defined"/>
+  </Error>
+  <Error id="AdviceAlreadyDefined" code="AOP9001" level="100" >
+    <en value ="Advice named {0} is already defined"/>
+  </Error>
+    <Error id="NoMappingForTypeParameter" code="AOP9001" level="100" >
+    <en value ="Type parameter '{0}' is not mapped in aspect '{1}'"/>
+  </Error>
+  <Error id="MappingForInexitingTypeParameter" code="AOP9001" level="100" >
+    <en value ="Type parameter '{0}' is defined in a mapping but does not exist in aspect '{1}'"/>
+  </Error>
+  <Error id="PrototypeTypeNoMap" code="AOP9001" level="100" >
+    <en value ="Prototype type'{0}' has no mapping definition with a target"/>
+  </Error>
+  <Error id="MethodGenericParameterRestriction" code="AOP9001" level="100" >
+    <en value ="The method generic parameterAspect  is not compatible with this kind of aspect '{0}'."/>
+  </Error>
+  <Error id="InvalidTypeUsage" code="AOP9001" level="100" >
+    <en value ="An aspect, an advice or a pointcut {0} can not be used as a type"/>
+  </Error>
+	<Error id="PrototypeTypeNotDefined" code="AOP9001" level="100" >
+		<en value ="The prototype type '{0}' in '{1}' is not defined."/>
+	</Error>
+	<Error id="NotExistingAspectSourceFile" code="AOP9001" level="100" >
+		<en value ="The source file '{0}' doesn't exist"/>
+	</Error>
+	<Error id="PrototypeTypeMappingMismatch" code="AOP9001" level="100" >
+		<en value ="Prototype type '{0}' has mismatched members with '{1}'"/>
+	</Error>
+	<Error id="PrototypeTypeThisNotAllowed" code="AOP9001" level="100" >
+		<en value ="Pointcut from aspect {0} cannot used the Prototype type '{1}' as a target as it is defined in another package"/>
+	</Error>
+</Errors>

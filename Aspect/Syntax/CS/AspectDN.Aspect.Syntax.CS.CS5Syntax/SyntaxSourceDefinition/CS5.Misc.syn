@@ -1,0 +1,109 @@
+﻿using-directives:
+	using-directive
+	using-directives   using-directive
+
+using-directive:
+	using-alias-directive
+	using-namespace-directive
+
++using-alias-directive:
+	'using'   identifier   '='   namespace-or-type-name   ';'
+
++using-namespace-directive:
+	'using'   namespace-name   ';'
+
+%namespace-or-type-name:
+	simple-name
+	namespace-or-type-name   '.'   simple-name
+	qualified-alias-member
+
+//test
++qualified-alias-member:
+	identifier   &'::'   simple-name
+	
+//test
+simple-name:
+	aspect-identifier   
+	generic-name
+
++generic-name:
+	aspect-identifier   type-argument-list
+
+namespace-name:
+	namespace-or-type-name
+	
++type-argument-list:
+	&'<'   type-arguments   '>'
+
+type-arguments:
+	type-argument
+	type-arguments   ','   type-argument
+
+type-argument:
+	type
+
+type-parameter:
+	aspect-identifier
+	
++type-name:
+	namespace-or-type-name
+
+%qualified-identifier:
+	simple-name
+	qualified-identifier   '.'   simple-name
+
+attributes:
+	attribute-sections
+
+attribute-sections:
+	attribute-section
+	attribute-sections   attribute-section
+
++attribute-section:
+	'['   [attribute-target-specifier]   attribute-list   ']'
+	'['   [attribute-target-specifier]   attribute-list   ','   ']'
+
+attribute-target-specifier:
+	attribute-target   ':'
+
++attribute-target:
+	'field'
+	'event'
+	'method'
+	'param'
+	'property'
+	'return'
+	'type'
+
+attribute-list:
+	attribute
+	attribute-list   ','   attribute
+
++attribute:
+	attribute-name   [attribute-arguments]
+
+attribute-name:
+	type-name
+
++attribute-arguments:
+	'('   [positional-argument-list]   ')'
+	'('   positional-argument-list   ','   named-argument-list   ')'
+	'('   named-argument-list   ')'
+
+positional-argument-list:
+	positional-argument
+	positional-argument-list   ','   positional-argument
+
++positional-argument:
+	[argument-name]   attribute-argument-expression
+
+named-argument-list:
+	named-argument
+	named-argument-list   ','   named-argument
+
++named-argument:
+	identifier   '='   attribute-argument-expression
+
+attribute-argument-expression:
+	( non-assignment-expression ?! '=' )
+
