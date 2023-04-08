@@ -4,25 +4,25 @@ You have only to describe, with a language derived from C#5, the code or types y
 
 ### short description
 With the help of **AspectDN**, you will be able to declare advices, pointcuts and aspects and weave several types of advices:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Chunk of code
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Classes, structures, interfaces, enumerations and delegates
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Members : fields, property, event, constructor
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Chunk of code
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Classes, structures, interfaces, enumerations and delegates
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Members : fields, property, event, constructor
 
 
 Pointcuts and jointoints can be according advice kinds:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Assemblies
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Types
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Fields
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Properties
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Methods
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Exceptions
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Events
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Assemblies
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Types
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Fields
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Properties
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Methods
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Exceptions
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Events
 
 Depending on the advice, the corresponding join point is applied:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- before, after or around add, remove, get, set or call method
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- before, after or around a body method, property or event
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- before, after or around an triggered event
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- before an exception arises
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- before, after or around add, remove, get, set or call method
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- before, after or around a body method, property or event
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- before, after or around an triggered event
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- before an exception arises
 
 ### example
 
@@ -100,6 +100,6 @@ GNU GPLv3 with possible commercial licence including more functionalities.
 Please contact us for more informations (aspectdn@gmail.com)
 
 ## Contributors
-Contributos are wellcome.
+Contributors are wellcome.
 All contributions are submitted to Contributor Assignment Agreemen (Individual or Corporate)
 Please contact us to get the agreement or for more information about it (aspectdn@gmail.com)
