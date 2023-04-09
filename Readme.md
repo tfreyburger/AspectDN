@@ -85,10 +85,10 @@ Dont't hesitate to run the tutorial for more explanation on the use of AspectDN
 ## Technologies
 
 AspectDN needs several libraries are used and required to compile the project:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Cecil of Jb Evain (version 0.11.0)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Roslyn (CodeAnalysis.CSharp) (version 3.8.0)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Cecil of Jb Evain (version 0.11.0)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Roslyn (CodeAnalysis.CSharp) (version 3.8.0)
 
-AspectDN can only Microsoft .Net DLL and EXE file.
+AspectDN can only be used to target Microsoft .Net DLL and EXE file.
 
 All tests have been done with Microsoft .NET Framework 4.6.1
 
