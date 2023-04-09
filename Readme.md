@@ -1,5 +1,5 @@
-# ![AspectDN_Logo](https://user-images.githubusercontent.com/80349691/230716308-610091c2-c37f-4956-8539-10fc0ab8b554.png)
-**AspectDN** is a library used to weave advices directly on binary assemblies developed in .net. 
+# AspectDN
+AspectDN is a library used to weave advices directly on binary assemblies developed in .net. 
 You have only to describe, with a language derived from C#5, the code or types you want to add or change in the target assembly or assemblies (dll or exe).
 
 ### short description
@@ -85,10 +85,10 @@ Dont't hesitate to run the tutorial for more explanation on the use of AspectDN
 ## Technologies
 
 AspectDN needs several libraries are used and required to compile the project:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Cecil of Jb Evain (version 0.11.0)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Roslyn (CodeAnalysis.CSharp) (version 3.8.0)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Cecil of Jb Evain (version 0.11.0)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Roslyn (CodeAnalysis.CSharp) (version 3.8.0)
 
-AspectDN can only Microsoft .Net DLL and EXE file.
+AspectDN can only be used to target Microsoft .Net DLL and EXE file.
 
 All tests have been done with Microsoft .NET Framework 4.6.1
 
