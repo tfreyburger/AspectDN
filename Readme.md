@@ -1,4 +1,5 @@
-# AspectDN
+![AspectDN_Logo](https://user-images.githubusercontent.com/80349691/230712228-7e2adb9c-b7a3-4760-a2e7-75101a55ab86.png)
+
 AspectDN is a library used to weave advices directly on binary assemblies developed in .net. 
 You have only to describe, with a language derived from C#5, the code or types you want to add or change in the target assembly or assemblies (dll or exe).
 
@@ -83,7 +84,6 @@ package Aspects
 Dont't hesitate to run the <a href="https://https://github.com/tfreyburger/aspectDN/wiki/Tutorials" title="AspectDN Tutorials">AspectDN Tutorials</a> for more explanation on the use of AspectDN 
 
 
-
 ## Technologies
 
 AspectDN needs several libraries are used and required to compile the project:
@@ -93,6 +93,9 @@ AspectDN needs several libraries are used and required to compile the project:
 AspectDN can only be used to target Microsoft .Net DLL and EXE file.
 
 All tests have been done with Microsoft .NET Framework 4.6.1
+
+## Documentations
+Coming soon (in progress)
 
 ## Installation
 To install AspectDN and use it, you must copy the aspectdn.zip file from the repository containing the exe file and dll.  
