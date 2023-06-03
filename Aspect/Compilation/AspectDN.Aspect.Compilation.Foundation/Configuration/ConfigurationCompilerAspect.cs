@@ -144,18 +144,7 @@ namespace AspectDN.Aspect.Compilation.Foundation
             }
             catch (Exception ex)
             {
-                var msg = $"{ex.ToString()} \n {ex.StackTrace}";
-
-                if (ex is System.Reflection.ReflectionTypeLoadException)
-                {
-                    var typeLoadException = ex as ReflectionTypeLoadException;
-                    var loaderExceptions = typeLoadException.LoaderExceptions;
-                    foreach (var lex in loaderExceptions)
-                        msg += lex.ToString() + @"\n";
-                }
-
-                throw ErrorFactory.GetException("UnknownCompilerAssemblyFilename", CompilerAspectAssemblyFilename, msg);
-
+                throw ErrorFactory.GetException("UnknownCompilerAssemblyFilename", CompilerAspectAssemblyFilename, ex.ToString());
             }
 
             Type type = assembly.GetTypes().Where(t => AspectCompilerHelper.IsTypeOf<AspectCompiler>(t)).FirstOrDefault();

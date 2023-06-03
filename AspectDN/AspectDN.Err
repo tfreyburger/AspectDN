@@ -10,12 +10,9 @@
 	<Error id="BadProjectConfigurationFile" code="AOP1001" level="100" >
 		<en value ="Bad Project configuration file '{0}'. An error occured '{1}'"/>
 	</Error>
-	<!--
-	<Error id="NotExistingAspectSourceFile" code="AOP1001" level="100" >
-		<en value ="aspect source file '{0}' doesn't exists for the solution"/>
-		
+	<Error id="CommandProcessArgumentInvalid" code="AOP1001" level="100" >
+		<en value ="Command AspectDN argument invalid. Try -help for more information"/>
 	</Error>
-	-->
 	<Error id="NotExistingAssemblyReference" code="AOP1001" level="100" >
 		<en value ="assembly file '{0}' doesn't exists"/>
 	</Error>
@@ -27,5 +24,54 @@
 	</Error>
 	<Error id="WeavingOk" code="AOP1001" level="100" >
 		<en value ="Weaving has been processed successfully"/>
+	</Error>
+
+	<Error id="NoProjectName" code="AOP1001" level="100" >
+		<en value ="Project name has not been defined"/>
+	</Error>
+	<Error id="NoLanguage" code="AOP1001" level="100" >
+		<en value ="Language has not been been defined"/>
+	</Error>
+	<Error id="NoProjectDirectoryPath" code="AOP1001" level="100" >
+		<en value ="ProjectDirectoryPath has not been  defined"/>
+	</Error>
+	<Error id="ProjectDirectoryInvalid" code="AOP1001" level="100" >
+		<en value ="ProjectDirectoryPath '{0}' is invalid or not found "/>
+	</Error>
+	<Error id="NoLogPath" code="AOP1001" level="100" >
+		<en value ="LogPath has not been been defined"/>
+	</Error>
+	<Error id="LogPathInvalid" code="AOP1001" level="100" >
+		<en value ="LogPath '{0}' is invalid or not found "/>
+	</Error>
+	<Error id="NoSourceTargetPath" code="AOP1001" level="100" >
+		<en value ="SourceTargetPath has not been defined"/>
+	</Error>
+	<Error id="SourceTargetPathInvalid" code="AOP1001" level="100" >
+		<en value ="SourceTargetPath '{0}' is invalid or not found "/>
+	</Error>
+	<Error id="NoOutputTargetPath" code="AOP1001" level="100" >
+		<en value ="OutputTargetPath has not been defined"/>
+	</Error>
+	<Error id="NoSourceTargetExclusion" code="AOP1001" level="100" >
+		<en value ="Excluded source target file has not been defined"/>
+	</Error>
+	<Error id="SourceTargetExclusionInvalid" code="AOP1001" level="100" >
+		<en value ="Excluded source target file '{0}' is invalid or not found "/>
+	</Error>
+	<Error id="NoFileReference" code="AOP1001" level="100" >
+		<en value ="File reference name has not been defined"/>
+	</Error>
+	<Error id="FileReferenceInvalid" code="AOP1001" level="100" >
+		<en value ="File reference '{0}' is invalid or not found "/>
+	</Error>
+	<Error id="NoAspectSourceFile" code="AOP1001" level="100" >
+		<en value ="Asoect source file name has not been defined"/>
+	</Error>
+	<Error id="AspectSourceFileInvalid" code="AOP1001" level="100" >
+		<en value ="Asoect source file '{0}' is invalid or not found "/>
+	</Error>
+	<Error id="BadProjectXmlElement" code="AOP1001" level="100" >
+		<en value ="Project XML element is not found or not well formed"/>
 	</Error>
 </Errors>

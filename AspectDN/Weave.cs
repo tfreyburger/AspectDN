@@ -14,28 +14,57 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using AspectDN.Wnd;
+using Foundation.Common;
+using AspectDN.Aspect.Weaving.IConcerns;
 
 namespace AspectDN
 {
-    public class Weave
+    internal class Weave
     {
-        public static void Main(string[] args)
+        [STAThread]
+        internal static void Main(string[] args)
         {
+            args = new string[]{"-window"};
             if (args == null || args.Length <= 0)
-                throw AspectDNErrorFactory.GetException("NoProjectConfigurationFile");
-            if (!File.Exists(args[1]))
-                throw AspectDNErrorFactory.GetException("ProjectConfigurationFileNotExist", args[1]);
+                throw AspectDNErrorFactory.GetException("CommandProcessArgumentInvalid");
+            switch (args[0].ToUpper())
+            {
+                case "-CREATE":
+                    if (!File.Exists(args[1]))
+                        throw AspectDNErrorFactory.GetException("ProjectConfigurationFileNotExist", args[1]);
+                    Create(args[1]);
+                    break;
+                case "-COMPILE":
+                    throw new NotImplementedException();
+                case "-WEAVE":
+                    throw new NotImplementedException();
+                case "-WINDOW":
+                    _Window();
+                    break;
+                case "-HELP":
+                    _Help();
+                    break;
+                default:
+                    throw AspectDNErrorFactory.GetException("CommandProcessArgumentInvalid", args[1]);
+            }
+        }
+
+        public static void Create(string projectFileName)
+        {
             XDocument xDoc = null;
             try
             {
-                xDoc = XDocument.Parse(File.ReadAllText(args[1], Encoding.UTF8));
+                xDoc = XDocument.Parse(File.ReadAllText(projectFileName, Encoding.UTF8));
             }
             catch (Exception ex)
             {
-                throw AspectDNErrorFactory.GetException("BadProjectConfigurationFile", args[1], ex.Message);
+                throw AspectDNErrorFactory.GetException("BadProjectConfigurationFile", projectFileName, ex.Message);
             }
 
-            switch (Path.GetExtension(args[1]).ToLower())
+            switch (Path.GetExtension(projectFileName).ToLower())
             {
                 case ".aspcfg":
                     AspectSolutionConfiguration aspectSolution = null;
@@ -45,44 +74,38 @@ namespace AspectDN
                     }
                     catch (Exception ex)
                     {
-                        throw AspectDNErrorFactory.GetException("BadProjectConfigurationFile", args[1], ex.Message);
+                        throw AspectDNErrorFactory.GetException("BadProjectConfigurationFile", projectFileName, ex.Message);
                     }
 
-                    _Process(aspectSolution);
+                    new AspectSolutionWeaver(aspectSolution).Weave();
                     break;
                 case ".saspprjcfg":
+                    TaskEventLogger.Log(null, new TaskEvent()
+                    {Message = "Start Process"});
                     SingleAspectProjectConfiguration singleProject = null;
                     try
                     {
                         singleProject = new SingleAspectProjectConfiguration().Setup(xDoc);
+                        singleProject.CreateAssembly();
                     }
                     catch (Exception ex)
                     {
-                        throw AspectDNErrorFactory.GetException("BadProjectConfigurationFile", args[1], ex.Message);
+                        throw AspectDNErrorFactory.GetException("BadProjectConfigurationFile", projectFileName, ex.Message);
                     }
 
-                    _Process(singleProject, args[0]);
                     break;
             }
         }
 
-        static void _Process(AspectSolutionConfiguration aspectSolution)
+        static void _Window()
         {
-            new AspectSolutionWeaver(aspectSolution).Weave();
+            new MainWindow().ShowDialog();
         }
 
-        static void _Process(SingleAspectProjectConfiguration singleProject, string processKind)
+        static void _Help()
         {
-            switch (processKind.ToLower())
-            {
-                case "-create":
-                    singleProject.CreateAssembly();
-                    break;
-                case "-compile":
-                    throw new NotImplementedException();
-                case "-weave":
-                    throw new NotImplementedException();
-            }
+            System.Console.WriteLine();
+            System.Console.ReadLine();
         }
     }
 }

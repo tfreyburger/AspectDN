@@ -401,7 +401,17 @@ namespace AspectDN.Aspect.Weaving
                 _WeaveItemMember.AddError(AspectDNErrorFactory.GetError("PrototypememberAccessModifierError", ((FieldDefinition)instruction.Operand).FullName, _WeaveItemMember.WeaveItem.Aspect.AspectDeclarationName, propertyMethod.FullName));
             }
 
-            var newInstruction = Instruction.Create(opCode, propertyMethod);
+            MethodReference propertyMethodReference = propertyMethod;
+            if (propertyMethod.DeclaringType.HasGenericParameters)
+            {
+                var genericDeclaringType = new GenericInstanceType(propertyMethod.DeclaringType);
+                foreach (var genericParameter in propertyDefinition.DeclaringType.GenericParameters.Cast<TypeReference>())
+                    genericDeclaringType.GenericArguments.Add(genericParameter);
+                propertyMethodReference = new MethodReference(propertyMethod.Name, propertyMethod.ReturnType, genericDeclaringType)
+                {HasThis = true};
+            }
+
+            var newInstruction = Instruction.Create(opCode, propertyMethodReference);
             newInstruction.Offset = ilBlockToConvert.SourceIL.Offset;
             targetILs.Add(newInstruction);
             if (opCodeData.IsAddress)

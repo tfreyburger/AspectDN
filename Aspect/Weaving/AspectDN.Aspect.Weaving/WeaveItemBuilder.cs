@@ -1546,16 +1546,20 @@ namespace AspectDN.Aspect.Weaving
         object _ResolvePrototypeField(string targetName, DeclaringTypedType fromType)
         {
             IMemberDefinition targetMember = fromType.Type.Fields.Where(t => t.Name == targetName).FirstOrDefault();
-            if (targetMember != null)
-                return targetMember;
-            targetMember = fromType.Type.Properties.Where(t => t.Name == targetName && !t.HasParameters).FirstOrDefault();
-            if (targetMember != null)
-                return targetMember;
-            targetMember = fromType.Type.Events.FirstOrDefault(t => t.Name == targetName);
-            if (targetMember != null)
-                return targetMember;
-            var newTypeMember = SafeWeaveItemMembers.OfType<NewTypeMember>().Where(t => t.JoinpointDeclaringType.FullName == fromType.Type.FullName && (t.ClonedMember is FieldDefinition || t.ClonedMember is PropertyDefinition || t.ClonedMember is EventDefinition) && t.ClonedMember.Name == targetName).Select(t => t.ClonedMember).FirstOrDefault();
-            return newTypeMember;
+            if (targetMember == null)
+            {
+                targetMember = fromType.Type.Properties.Where(t => t.Name == targetName && !t.HasParameters).FirstOrDefault();
+                if (targetMember == null)
+                {
+                    targetMember = fromType.Type.Events.FirstOrDefault(t => t.Name == targetName);
+                    if (targetMember == null)
+                    {
+                        targetMember = SafeWeaveItemMembers.OfType<NewTypeMember>().Where(t => t.JoinpointDeclaringType.FullName == fromType.Type.FullName && (t.ClonedMember is FieldDefinition || t.ClonedMember is PropertyDefinition || t.ClonedMember is EventDefinition) && t.ClonedMember.Name == targetName).Select(t => t.ClonedMember).FirstOrDefault();
+                    }
+                }
+            }
+
+            return targetMember;
         }
 
         object _ResolvePrototypeMethod(MethodDefinition sourceMethod, IPrototypeItemMappingDefinition prototypeItemMappingDefinition, WeaveItem weaveItem)
