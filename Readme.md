@@ -81,7 +81,7 @@ package Aspects
 }
 ```
 
-Dont't hesitate to run the <a href="https://https://github.com/tfreyburger/aspectDN/wiki/Tutorials" title="AspectDN Tutorials">AspectDN Tutorials</a> for more explanation on the use of AspectDN 
+Dont't hesitate to run the <a href="https://github.com/tfreyburger/aspectDN/wiki/Tutorials" title="AspectDN Tutorials">AspectDN Tutorials</a> for more explanation on the use of AspectDN 
 
 
 ## Technologies
