@@ -95,7 +95,7 @@ AspectDN can only be used to target Microsoft .Net DLL and EXE file.
 All tests have been done with Microsoft .NET Framework 4.6.1
 
 ## Documentations
-You can download the <a href="[https://https://github.com/tfreyburger/aspectDN/wiki/Tutorials](https://github.com/tfreyburger/AspectDN/files/11642224/AspectDN.Documentation.pdf)" title="AspectDN Documentation">AspectDN Documentation</a>
+You can download the <a href="https://github.com/tfreyburger/AspectDN/files/11642224/AspectDN.Documentation.pdf" title="AspectDN Documentation">AspectDN Documentation</a>
 
 ## Installation
 To install AspectDN and use it, you must copy the aspectdn.zip file from the repository containing the exe file and dll.  
