@@ -27,7 +27,6 @@ namespace AspectDN
         [STAThread]
         internal static void Main(string[] args)
         {
-            args = new string[]{"-window"};
             if (args == null || args.Length <= 0)
                 throw AspectDNErrorFactory.GetException("CommandProcessArgumentInvalid");
             switch (args[0].ToUpper())
