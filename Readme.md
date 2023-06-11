@@ -105,7 +105,7 @@ GNU GPLv3 with possible commercial licence including more functionalities.
 Please contact us for more informations (aspectdn@gmail.com)
 
 ## Change Log
-<a href="https://https://github.com/tfreyburger/AspectDN/blob/0.9.0.0/ChangeLog.md">Last Change : 06/10/2023</a>
+<a href="https://github.com/tfreyburger/AspectDN/blob/0.9.0.0/ChangeLog.md">Last Change : 06/10/2023</a>
 
 ## Contributors
 Contributors are wellcome.
