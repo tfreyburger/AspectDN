@@ -38,7 +38,7 @@ namespace AspectDN
         List<string> _AspectSourceFileNames;
         List<string> _ExcludedSourceTargetFiles;
         List<string> _ExcludedSourceTargetDirectories;
-        bool _Error;
+        bool _OnError;
         internal string Name { get => _Name; }
 
         internal string Language { get => _Language; }
@@ -57,7 +57,7 @@ namespace AspectDN
 
         internal List<string> AspectSourceFileNames { get => AspectSourceFileNames; }
 
-        internal bool Error { get => _Error; }
+        internal bool OnError { get => _OnError; }
 
         internal SingleAspectProjectConfiguration()
         {
@@ -65,7 +65,7 @@ namespace AspectDN
             _FileNameReferences = new List<string>();
             _ExcludedSourceTargetDirectories = new List<string>();
             _ExcludedSourceTargetFiles = new List<string>();
-            _Error = false;
+            _OnError = false;
         }
 
         internal SingleAspectProjectConfiguration Setup(XDocument xDocument)
@@ -168,7 +168,7 @@ namespace AspectDN
                 name = xAttribute.Value;
             if (string.IsNullOrEmpty(name))
             {
-                MessageBox.Show(ErrorFactory.GetError("NoProjectName", null).ToString());
+                _ShowError("NoProjectName");
             }
 
             return name;
@@ -181,7 +181,7 @@ namespace AspectDN
                 language = xAttribute.Value;
             if (string.IsNullOrEmpty(language))
             {
-                MessageBox.Show(ErrorFactory.GetError("NoLanguage", null).ToString());
+                _ShowError("NoLanguage");
             }
 
             return language;
@@ -194,13 +194,13 @@ namespace AspectDN
                 projectDirectoryPath = xAttribute.Value;
             if (string.IsNullOrEmpty(projectDirectoryPath))
             {
-                MessageBox.Show(ErrorFactory.GetError("NoProjectDirectoryPath").ToString());
+                _ShowError("NoProjectDirectoryPath");
                 return projectDirectoryPath;
             }
 
             if (!Directory.Exists(projectDirectoryPath))
             {
-                MessageBox.Show(ErrorFactory.GetError("ProjectDirectoryInvalid", projectDirectoryPath).ToString());
+                _ShowError("ProjectDirectoryInvalid", projectDirectoryPath);
                 return projectDirectoryPath;
             }
 
@@ -217,7 +217,7 @@ namespace AspectDN
 
             if (string.IsNullOrEmpty(logPath))
             {
-                MessageBox.Show(ErrorFactory.GetError("NoLogPath", null).ToString());
+                _ShowError("NoLogPath");
                 return logPath;
             }
 
@@ -226,7 +226,7 @@ namespace AspectDN
             else
             {
                 if (!Directory.Exists(_LogPath))
-                    MessageBox.Show(ErrorFactory.GetError("LogPathInvalid", logPath).ToString());
+                    _ShowError("LogPathInvalid", logPath);
             }
 
             return logPath;
@@ -260,20 +260,20 @@ namespace AspectDN
 
         IEnumerable<string> _GetExcludedSourceTargetFiles(IEnumerable<XElement> xElements)
         {
-            if (xElements == null || xElements.Select(t => t.Descendants("File")).Any())
+            if (xElements == null || !xElements.Any())
                 return new string[0];
-            var excludedSourceTargetFiles = xElements.Select(t => t.Descendants("File")).Select(t => t.Attributes("filename").First()).Select(t => t.Value).ToList();
+            var excludedSourceTargetFiles = xElements.Select(t => t.Attributes("filename").First()).Select(t => t.Value).ToList();
             for (int i = 0; i < excludedSourceTargetFiles.Count; i++)
             {
                 if (string.IsNullOrEmpty(excludedSourceTargetFiles[i]))
                 {
-                    MessageBox.Show(ErrorFactory.GetError("NoSourceTargetExclusion", null).ToString());
+                    _ShowError("NoSourceTargetExclusion");
                 }
 
                 excludedSourceTargetFiles[i] = excludedSourceTargetFiles[i].Replace("..", _SourceTargetPath);
-                if (!Directory.Exists(excludedSourceTargetFiles[i]))
+                if (!File.Exists(excludedSourceTargetFiles[i]))
                 {
-                    MessageBox.Show(ErrorFactory.GetError("SourceTargetExclusionInvalid", excludedSourceTargetFiles[i]).ToString());
+                    _ShowError("SourceTargetExclusionInvalid", excludedSourceTargetFiles[i]);
                 }
             }
 
@@ -294,7 +294,7 @@ namespace AspectDN
 
             if (string.IsNullOrEmpty(outputTargetPath))
             {
-                MessageBox.Show(ErrorFactory.GetError("NoOutputTargetPath", null).ToString());
+                _ShowError("NoOutputTargetPath");
                 return outputTargetPath;
             }
 
@@ -303,20 +303,20 @@ namespace AspectDN
 
         IEnumerable<string> _GetFilenameReferences(IEnumerable<XElement> xElements)
         {
-            if (xElements == null || xElements.Select(t => t.Descendants("FileReference")).Any())
+            if (xElements == null || !xElements.Any())
                 return new string[0];
-            var filenameReferences = xElements.Select(t => t.Descendants("FileReference")).Select(t => t.Attributes("filename").First()).Select(t => t.Value).ToArray();
+            var filenameReferences = xElements.Select(t => t.Attributes("filename").First()).Select(t => t.Value).ToArray();
             for (int i = 0; i < filenameReferences.Length; i++)
             {
                 if (string.IsNullOrEmpty(filenameReferences[i]))
                 {
-                    MessageBox.Show(ErrorFactory.GetError("NoFileReference", null).ToString());
+                    _ShowError("NoFileReference");
                 }
 
                 filenameReferences[i] = filenameReferences[i].Replace("..", _SourceTargetPath);
-                if (!Directory.Exists(filenameReferences[i]))
+                if (!File.Exists(filenameReferences[i]))
                 {
-                    MessageBox.Show(ErrorFactory.GetError("FileReferenceInvalid", filenameReferences[i]).ToString());
+                    _ShowError("FileReferenceInvalid", filenameReferences[i]);
                 }
             }
 
@@ -325,20 +325,20 @@ namespace AspectDN
 
         IEnumerable<string> _GetAspectSourceFiles(IEnumerable<XElement> xElements)
         {
-            if (xElements == null || xElements.Select(t => t.Descendants("AspectSourceFile")).Any())
+            if (xElements == null || !xElements.Any())
                 return new string[0];
-            var aspectSourceFiles = xElements.Select(t => t.Descendants("AspectSourceFile")).Select(t => t.Attributes("filename").First()).Select(t => t.Value).ToList();
+            var aspectSourceFiles = xElements.Select(t => t.Attributes("filename").First()).Select(t => t.Value).ToList();
             for (int i = 0; i < aspectSourceFiles.Count; i++)
             {
                 if (string.IsNullOrEmpty(aspectSourceFiles[i]))
                 {
-                    MessageBox.Show(ErrorFactory.GetError("NoAspectSourceFile", null).ToString());
+                    _ShowError("NoAspectSourceFile");
                 }
 
-                aspectSourceFiles[i] = aspectSourceFiles[i].Replace("..", _SourceTargetPath);
-                if (!Directory.Exists(aspectSourceFiles[i]))
+                aspectSourceFiles[i] = Path.Combine(_ProjectDirectoryPath, aspectSourceFiles[i]);
+                if (!File.Exists(aspectSourceFiles[i]))
                 {
-                    MessageBox.Show(ErrorFactory.GetError("AspectSourceFileInvalid", aspectSourceFiles[i]).ToString());
+                    _ShowError("AspectSourceFileInvalid", aspectSourceFiles[i]);
                 }
             }
 
@@ -371,7 +371,7 @@ namespace AspectDN
                 {Message = message});
             }
 
-            _Error = true;
+            _OnError = true;
         }
     }
 }

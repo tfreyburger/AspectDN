@@ -85,7 +85,11 @@ namespace AspectDN
                     try
                     {
                         singleProject = new SingleAspectProjectConfiguration().Setup(xDoc);
-                        singleProject.CreateAssembly();
+                        if (!singleProject.OnError)
+                            singleProject.CreateAssembly();
+                        else
+                            TaskEventLogger.Log(null, new TaskEvent()
+                            {Message = AspectDNErrorFactory.GetError("WeavingError").ToString()});
                     }
                     catch (Exception ex)
                     {

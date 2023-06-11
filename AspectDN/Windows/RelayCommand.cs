@@ -1,4 +1,12 @@
-﻿using System;
+// Author:
+//
+// T. Freyburger (t.freyburger@gmail.com)
+//
+// Copyright (c)  Thierry Freyburger
+//
+// Licensed under the GPLV3 license.
+////
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -12,28 +20,40 @@ namespace AspectDN.Wnd
     {
         readonly Action<object> _execute;
         readonly Predicate<object> _canExecute;
+        public RelayCommand(Action<object> execute) : this(execute, null)
+        {
+        }
 
-        public RelayCommand(Action<object> execute) : this(execute, null) { }
         public RelayCommand(Action<object> execute, Predicate<object> canExecute)
         {
             if (execute == null)
                 throw new ArgumentNullException("execute");
-            _execute = execute; 
+            _execute = execute;
             _canExecute = canExecute;
         }
-
 
         [DebuggerStepThrough]
         public bool CanExecute(object parameter)
         {
             return _canExecute == null ? true : _canExecute(parameter);
         }
+
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-        public void Execute(object parameter) { _execute(parameter); }
+            add
+            {
+                CommandManager.RequerySuggested += value;
+            }
 
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
+            }
+        }
+
+        public void Execute(object parameter)
+        {
+            _execute(parameter);
+        }
     }
 }

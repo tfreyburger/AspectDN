@@ -58,7 +58,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding Path=Id}" TextAlignment="Right" Margin="2"/>
+                            <TextBlock Text="{Binding Path=DateTime}" TextAlignment="Right" Margin="2"/>
                             <TextBlock Grid.Column="1" Text="{Binding Path=Message}" TextWrapping="WrapWithOverflow" Margin="2" />
                         </Grid>
                     </DataTemplate>
