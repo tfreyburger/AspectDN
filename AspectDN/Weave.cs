@@ -53,56 +53,68 @@ namespace AspectDN
 
         public static void Create(string projectFileName)
         {
-            XDocument xDoc = null;
             try
             {
-                xDoc = XDocument.Parse(File.ReadAllText(projectFileName, Encoding.UTF8));
+                var xDoc = XDocument.Parse(File.ReadAllText(projectFileName, Encoding.UTF8));
+                switch (Path.GetExtension(projectFileName).ToLower())
+                {
+                    case ".aspcfg":
+                        _CreateProject(xDoc, projectFileName);
+                        break;
+                    case ".saspprjcfg":
+                        _CreateSingleProject(xDoc, projectFileName);
+                        break;
+                }
             }
             catch (Exception ex)
             {
-                throw AspectDNErrorFactory.GetException("BadProjectConfigurationFile", projectFileName, ex.Message);
+                TaskEventLogger.Log(null, new TaskEvent()
+                {Message = AspectDNErrorFactory.GetException("BadProjectConfigurationFile", projectFileName, ex.Message).ToString()});
             }
+        }
 
-            switch (Path.GetExtension(projectFileName).ToLower())
+        static void _CreateSingleProject(XDocument xDoc, string projectFileName)
+        {
+            TaskEventLogger.Log(null, new TaskEvent()
+            {Message = "Start Process"});
+            try
             {
-                case ".aspcfg":
-                    AspectSolutionConfiguration aspectSolution = null;
-                    try
-                    {
-                        aspectSolution = new AspectSolutionConfiguration().Accept(new AspectConfigurationVisitor(), xDoc);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw AspectDNErrorFactory.GetException("BadProjectConfigurationFile", projectFileName, ex.Message);
-                    }
-
-                    new AspectSolutionWeaver(aspectSolution).Weave();
-                    break;
-                case ".saspprjcfg":
+                var singleProject = new SingleAspectProjectConfiguration().Setup(xDoc);
+                if (!singleProject.OnError)
+                    singleProject.CreateAssembly();
+                else
                     TaskEventLogger.Log(null, new TaskEvent()
-                    {Message = "Start Process"});
-                    SingleAspectProjectConfiguration singleProject = null;
-                    try
-                    {
-                        singleProject = new SingleAspectProjectConfiguration().Setup(xDoc);
-                        if (!singleProject.OnError)
-                            singleProject.CreateAssembly();
-                        else
-                            TaskEventLogger.Log(null, new TaskEvent()
-                            {Message = AspectDNErrorFactory.GetError("WeavingError").ToString()});
-                    }
-                    catch (Exception ex)
-                    {
-                        throw AspectDNErrorFactory.GetException("BadProjectConfigurationFile", projectFileName, ex.Message);
-                    }
-
-                    break;
+                    {Message = AspectDNErrorFactory.GetError("WeavingError").ToString()});
             }
+            catch (Exception ex)
+            {
+                TaskEventLogger.Log(null, new TaskEvent()
+                {Message = AspectDNErrorFactory.GetError("WeavingError").ToString()});
+                throw;
+            }
+        }
+
+        static void _CreateProject(XDocument xDoc, string projectFileName)
+        {
+            AspectSolutionConfiguration aspectSolution = null;
+            try
+            {
+                aspectSolution = new AspectSolutionConfiguration().Accept(new AspectConfigurationVisitor(), xDoc);
+            }
+            catch (Exception ex)
+            {
+                TaskEventLogger.Log(null, new TaskEvent()
+                {Message = AspectDNErrorFactory.GetError("WeavingError").ToString()});
+            }
+
+            new AspectSolutionWeaver(aspectSolution).Weave();
         }
 
         static void _Window()
         {
-            new MainWindow().ShowDialog();
+            var window = new MainWindow();
+            window.ShowDialog();
+            window.Close();
         }
 
         static void _Help()

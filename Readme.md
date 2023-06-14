@@ -104,6 +104,9 @@ To install AspectDN and use it, you must copy the aspectdn.zip file from the rep
 GNU GPLv3 with possible commercial licence including more functionalities.
 Please contact us for more informations (aspectdn@gmail.com)
 
+## Change Log
+<a href="https://github.com/tfreyburger/AspectDN/blob/0.9.0.0/ChangeLog.md">Last Change : 06/14/2023</a>
+
 ## Contributors
 Contributors are wellcome.
 All contributions are submitted to Contributor Assignment Agreemen (Individual or Corporate)

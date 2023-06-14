@@ -97,17 +97,55 @@ namespace AspectDN
         {
             if (File.Exists(LogFilename))
                 File.Delete(LogFilename);
-            var logWriter = new LogWriter(Name, LogFilename);
+            if (Directory.Exists(_OutputTargetPath))
+                Directory.Delete(_OutputTargetPath, true);
+            Directory.CreateDirectory(_OutputTargetPath);
             var fileReferences = new List<string>(_FileNameReferences);
             fileReferences.Add(typeof(object).Assembly.Location);
             fileReferences.Add(typeof(Func<>).Assembly.Location);
             fileReferences.Add(typeof(IQueryable).Assembly.Location);
-            AspectCompiler compiler = null;
-            TaskEventLogger.Log(this, new TaskEvent()
-            {Message = "Loading the aspect compiler"});
+            var logWriter = new LogWriter(Name, LogFilename);
             try
             {
-                compiler = CompilerAspectRepository.GetCompilerAspect(Language, Name, LogFilename);
+                var aspectFile = _CompileAspectFile(fileReferences);
+                if (aspectFile == null || aspectFile.Length == 0)
+                {
+                    _ShowError("CompilationError");
+                    return;
+                }
+
+                var aspectContainer = _GetAspectsContainer(aspectFile);
+                TaskEventLogger.Log(this, new TaskEvent()
+                {Message = "Loading joinpoints"});
+                var joinpointsContainer = _GetJoinpointsContainer();
+                TaskEventLogger.Log(this, new TaskEvent()
+                {Message = "Start Weaving"});
+                var weaver = new Weaver(joinpointsContainer, aspectContainer, null, OutputTargetPath);
+                weaver.Weave();
+                if (!weaver.Errors.Any())
+                {
+                    TaskEventLogger.Log(this, new TaskEvent()
+                    {Message = "Generating target assemblies"});
+                    if (!Directory.Exists(_OutputTargetPath))
+                        Directory.CreateDirectory(_OutputTargetPath);
+                    foreach (var fileReference in _FileNameReferences)
+                    {
+                        if (File.Exists(fileReference) && !File.Exists(Path.Combine(_OutputTargetPath, Path.GetFileName(fileReference))))
+                            File.Copy(fileReference, Path.Combine(_OutputTargetPath, Path.GetFileName(fileReference)));
+                    }
+
+                    logWriter.ShutDown();
+                    if (File.Exists(LogFilename))
+                        File.Delete(LogFilename);
+                    _ShowError("WeavingOk");
+                }
+                else
+                {
+                    foreach (var error in weaver.Errors)
+                        logWriter.LogInfo(error.ToString());
+                    logWriter.ShutDown();
+                    _ShowError("WeavingError");
+                }
             }
             catch (Exception ex)
             {
@@ -116,49 +154,22 @@ namespace AspectDN
                 _ShowError("WeavingError");
                 return;
             }
+        }
 
+        byte[] _CompileAspectFile(IEnumerable<string> fileReferences)
+        {
+            TaskEventLogger.Log(this, new TaskEvent()
+            {Message = "Loading the aspect compiler"});
+            var compiler = CompilerAspectRepository.GetCompilerAspect(Language, Name, LogFilename);
             compiler.AddReferencedAssembly(fileReferences.ToArray());
+            TaskEventLogger.Log(this, new TaskEvent()
+            {Message = "Check Aspect Syntax"});
             var filenames = new List<string>(_AspectSourceFileNames.Count());
             foreach (var filename in _AspectSourceFileNames)
                 filenames.Add(Path.Combine(ProjectDirectoryPath, filename));
             compiler.AddSourceFilenames(filenames.ToArray());
-            TaskEventLogger.Log(this, new TaskEvent()
-            {Message = "Check Aspect Syntax"});
             var aspectFile = compiler.GetAspectBytes(Name);
-            if (aspectFile == null || aspectFile.Length == 0)
-            {
-                _ShowError("CompilationError");
-                return;
-            }
-
-            var joinpointsContainer = _GetJoinpointsContainer();
-            var aspectContainer = _GetAspectsContainer(aspectFile);
-            var weaver = new Weaver(joinpointsContainer, aspectContainer, null, OutputTargetPath);
-            TaskEventLogger.Log(this, new TaskEvent()
-            {Message = "Start Weaving"});
-            weaver.Weave();
-            if (!weaver.Errors.Any())
-            {
-                if (!Directory.Exists(_OutputTargetPath))
-                    Directory.CreateDirectory(_OutputTargetPath);
-                foreach (var fileReference in _FileNameReferences)
-                {
-                    if (File.Exists(fileReference) && !File.Exists(Path.Combine(_OutputTargetPath, Path.GetFileName(fileReference))))
-                        File.Copy(fileReference, Path.Combine(_OutputTargetPath, Path.GetFileName(fileReference)));
-                }
-
-                logWriter.ShutDown();
-                if (File.Exists(LogFilename))
-                    File.Delete(LogFilename);
-                _ShowError("WeavingOk");
-            }
-            else
-            {
-                foreach (var error in weaver.Errors)
-                    logWriter.LogInfo(error.ToString());
-                logWriter.ShutDown();
-                _ShowError("WeavingError");
-            }
+            return aspectFile;
         }
 
         string _GetProjectName(XAttribute xAttribute)

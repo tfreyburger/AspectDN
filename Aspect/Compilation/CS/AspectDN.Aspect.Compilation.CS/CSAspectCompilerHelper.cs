@@ -2336,9 +2336,7 @@ namespace AspectDN.Aspect.Compilation.CS
             }
             else
             {
-                ImplicitArrayCreationExpressionSyntax arrayExpression = SyntaxFactory.ImplicitArrayCreationExpression((InitializerExpressionSyntax)arrayCreationExpression.GetSyntaxNode());
-                if (arrayCreationExpression.RankSpecifiers != null)
-                    arrayExpression = arrayExpression.WithCommas(SyntaxTokenList(arrayCreationExpression.RankSpecifiers));
+                ImplicitArrayCreationExpressionSyntax arrayExpression = SyntaxFactory.ImplicitArrayCreationExpression((InitializerExpressionSyntax)arrayCreationExpression.ArrayInitializer.GetSyntaxNode());
                 expression = arrayExpression;
             }
 
