@@ -98,7 +98,8 @@ All tests have been done with Microsoft .NET Framework 4.6.1
 You can download the <a href="https://github.com/tfreyburger/AspectDN/files/11642224/AspectDN.Documentation.pdf" title="AspectDN Documentation">AspectDN Documentation</a>
 
 ## Installation
-To install AspectDN and use it, you must copy the aspectdn.zip file from the repository containing the exe file and dll.  
+Download [AspectDN](https://github.com/tfreyburger/AspectDN/files/11925948/AspectDN.zip)
+and from its directory, run the command 'aspectd -window', load the aspectdn project configuration file and weave.  
 
 ## License
 GNU GPLv3 with possible commercial licence including more functionalities.

@@ -87,7 +87,7 @@ namespace AspectDN
                 _SourceTargetPath = _GetSourceTargetPath(xProject.Attributes("sourceTargetPath").FirstOrDefault());
             }
 
-            _ExcludedSourceTargetFiles.AddRange(_GetExcludedSourceTargetFiles(xDocument.Root.Descendants("SourceTargetExclusion")));
+            _ExcludedSourceTargetFiles.AddRange(_GetExcludedSourceTargetFiles(xDocument.Root.Descendants("SourceTargetExclusion").DescendantNodes().Cast<XElement>()));
             _FileNameReferences.AddRange(_GetFilenameReferences(xDocument.Root.Descendants("FileReference")));
             _AspectSourceFileNames.AddRange(_GetAspectSourceFiles(xDocument.Root.Descendants("AspectSourceFile")));
             return this;
@@ -324,7 +324,7 @@ namespace AspectDN
                     _ShowError("NoFileReference");
                 }
 
-                filenameReferences[i] = filenameReferences[i].Replace("..", _SourceTargetPath);
+                filenameReferences[i] = filenameReferences[i].Replace("..", _ProjectDirectoryPath);
                 if (!File.Exists(filenameReferences[i]))
                 {
                     _ShowError("FileReferenceInvalid", filenameReferences[i]);
