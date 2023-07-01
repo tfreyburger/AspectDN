@@ -99,7 +99,7 @@ You can download the <a href="https://github.com/tfreyburger/AspectDN/files/1164
 
 ## Installation
 Download [AspectDN](https://github.com/tfreyburger/AspectDN/files/11925948/AspectDN.zip)
-and from its directory installation, run the command 'aspectd -window', load the aspectdn project configuration file and weave.  
+and from its directory, run the command 'aspectd -window', load the aspectdn project configuration file and weave.  
 
 ## License
 GNU GPLv3 with possible commercial licence including more functionalities.
