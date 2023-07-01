@@ -1,3 +1,7 @@
+# Change Log
+
+## 2023-07-01
+> Syntax Error Improvements
 
 ## 2023-06-14
 > Bug fixing : 
