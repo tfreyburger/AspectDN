@@ -98,7 +98,7 @@ All tests have been done with Microsoft .NET Framework 4.6.1
 You can download the <a href="https://github.com/tfreyburger/AspectDN/files/11642224/AspectDN.Documentation.pdf" title="AspectDN Documentation">AspectDN Documentation</a>
 
 ## Installation
-Download [AspectDN](https://github.com/tfreyburger/AspectDN/files/11925948/AspectDN.zip)
+Download [AspectDN]([AspectDN.zip](https://github.com/tfreyburger/AspectDN/files/11928922/AspectDN.zip)
 and from its directory, run the command 'aspectd -window', load the aspectdn project configuration file and weave.  
 
 ## License
